@@ -4,10 +4,11 @@ from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
 from utils.data import iCIFAR10, iCIFAR100, iImageNet100, iImageNet1000, iCIFAR224, iImageNetR,iImageNetA,CUB, objectnet, omnibenchmark, vtab
+from albumentations import Compose as A_Compose
 
 
 class DataManager(object):
-    def __init__(self, dataset_name, shuffle, seed, init_cls, increment):
+    def __init__(self, dataset_name, shuffle, seed, init_cls, increment, use_A=True):
         self.dataset_name = dataset_name
         self._setup_data(dataset_name, shuffle, seed)
         assert init_cls <= len(self._class_order), "No enough classes."
@@ -17,6 +18,7 @@ class DataManager(object):
         offset = len(self._class_order) - sum(self._increments)
         if offset > 0:
             self._increments.append(offset)
+        self.use_A = use_A
 
     @property
     def nb_tasks(self):
@@ -38,8 +40,12 @@ class DataManager(object):
         else:
             raise ValueError("Unknown data source {}.".format(source))
 
+        # only the trainloader will be using the albumentations
         if mode == "train":
-            trsf = transforms.Compose([*self._train_trsf, *self._common_trsf])
+            if self.use_A:
+                trsf = A_Compose([*self._train_trsf, *self._common_trsf])
+            else:
+                trsf = transforms.Compose([*self._train_trsf, *self._common_trsf])
         elif mode == "flip":
             trsf = transforms.Compose(
                 [
@@ -193,15 +199,28 @@ class DummyDataset(Dataset):
         self.labels = labels
         self.trsf = trsf
         self.use_path = use_path
+        # check if trsf is the Compose of albumenations
+        if isinstance(trsf, A_Compose):
+            self.use_A = True
+        else:
+            self.use_A = False
+
 
     def __len__(self):
         return len(self.images)
 
     def __getitem__(self, idx):
-        if self.use_path:
-            image = self.trsf(pil_loader(self.images[idx]))
+        if self.use_A:
+            if self.use_path:
+                image = self.trsf(image=np.array(pil_loader(self.images[idx])))
+            else:
+                image = self.trsf(image=np.array(Image.fromarray(self.images[idx])))
         else:
-            image = self.trsf(Image.fromarray(self.images[idx]))
+            if self.use_path:
+                image = self.trsf(pil_loader(self.images[idx]))
+            else:
+                image = self.trsf(Image.fromarray(self.images[idx]))
+
         label = self.labels[idx]
 
         return idx, image, label

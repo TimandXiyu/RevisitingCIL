@@ -12,7 +12,7 @@ from models.base import BaseLearner
 from utils.toolkit import target2onehot, tensor2numpy
 
 # tune the model at first session with adapter, and then conduct simplecil.
-num_workers = 8
+num_workers = 16
 
 class Learner(BaseLearner):
     def __init__(self, args):
@@ -31,6 +31,7 @@ class Learner(BaseLearner):
         
         self.weight_decay=args["weight_decay"] if args["weight_decay"] is not None else 0.0005
         self.min_lr=args['min_lr'] if args['min_lr'] is not None else 1e-8
+        self.use_A = args['use_A']
         self.args=args
 
     def after_task(self):
@@ -43,8 +44,10 @@ class Learner(BaseLearner):
         label_list = []
         # data_list=[]
         with torch.no_grad():
-            for i, batch in enumerate(trainloader):
+            for i, batch in tqdm(enumerate(trainloader), total=len(trainloader), desc='Generating prototypes'):
                 (_,data,label)=batch
+                if isinstance(data, dict):
+                    data = data['image']
                 data=data.cuda()
                 label=label.cuda()
                 embedding = model(data)['features']
@@ -60,7 +63,11 @@ class Learner(BaseLearner):
             data_index=(label_list==class_index).nonzero().squeeze(-1)
             embedding=embedding_list[data_index]
             proto=embedding.mean(0)
-            self._network.fc.weight.data[class_index]=proto
+            # check if _network is a dara parallel model, if so, call the .module method
+            if isinstance(self._network, torch.nn.DataParallel):
+                self._network.module.fc.weight.data[class_index]=proto
+            else:
+                self._network.fc.weight.data[class_index]=proto
         return model
 
     
@@ -71,23 +78,27 @@ class Learner(BaseLearner):
         self._network.update_fc(self._total_classes)
         logging.info("Learning on {}-{}".format(self._known_classes, self._total_classes))
 
-        train_dataset = data_manager.get_dataset(np.arange(self._known_classes, self._total_classes),source="train", mode="train", )
+        train_dataset = data_manager.get_dataset(np.arange(self._known_classes, self._total_classes),source="train", mode="train")
         self.train_dataset=train_dataset
         self.data_manager=data_manager
         self.train_loader = DataLoader(train_dataset, batch_size=self.batch_size, shuffle=True, num_workers=num_workers)
 
-        test_dataset = data_manager.get_dataset(np.arange(0, self._total_classes), source="test", mode="test" )
+        test_dataset = data_manager.get_dataset(np.arange(0, self._total_classes), source="test", mode="test")
         self.test_loader = DataLoader(test_dataset, batch_size=self.batch_size, shuffle=False, num_workers=num_workers)
 
-        train_dataset_for_protonet=data_manager.get_dataset(np.arange(self._known_classes, self._total_classes),source="train", mode="test", )
+        train_dataset_for_protonet=data_manager.get_dataset(np.arange(self._known_classes, self._total_classes),source="train", mode="test")
         self.train_loader_for_protonet = DataLoader(train_dataset_for_protonet, batch_size=self.batch_size, shuffle=True, num_workers=num_workers)
 
         if len(self._multiple_gpus) > 1:
             print('Multiple GPUs')
             self._network = nn.DataParallel(self._network, self._multiple_gpus)
+
         self._train(self.train_loader, self.test_loader, self.train_loader_for_protonet)
+
         if len(self._multiple_gpus) > 1:
-            self._network = self._network.module
+            # check if _network is DataParallel
+            if isinstance(self._network, nn.DataParallel):
+                self._network = self._network.module
 
     def _train(self, train_loader, test_loader, train_loader_for_protonet):
         
@@ -119,18 +130,23 @@ class Learner(BaseLearner):
     def construct_dual_branch_network(self):
         network = MultiBranchCosineIncrementalNet(self.args, True)
         network.construct_dual_branch_network(self._network)
-        self._network=network.to(self._device)
+        self._network = network.to(self._device)
 
     def _init_train(self, train_loader, test_loader, optimizer, scheduler):
-        prog_bar = tqdm(range(self.args['tuned_epoch']))
-        for _, epoch in enumerate(prog_bar):
+        for _, epoch in enumerate(range(self.args['tuned_epoch'])):
             self._network.train()
             losses = 0.0
             correct, total = 0, 0
-            for i, (_, inputs, targets) in enumerate(train_loader):
+            # while len(tqdm._instances) > 0:
+            #     tqdm._instances.pop().close()
+            for i, (_, inputs, targets) in tqdm(enumerate(train_loader), total=len(train_loader), desc='Training'):
+                # output from albumentations is a dict
+                if isinstance(inputs, dict):
+                    inputs = inputs['image']
                 inputs, targets = inputs.to(self._device), targets.to(self._device)
                 logits = self._network(inputs)["logits"]
-
+                # convert targets to long dtype
+                targets = targets.long()
                 loss = F.cross_entropy(logits, targets)
                 optimizer.zero_grad()
                 loss.backward()
@@ -153,7 +169,6 @@ class Learner(BaseLearner):
                 train_acc,
                 test_acc,
             )
-            prog_bar.set_description(info)
 
         logging.info(info)
 

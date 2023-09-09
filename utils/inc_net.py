@@ -631,8 +631,11 @@ class MultiBranchCosineIncrementalNet(BaseNet):
         else:
             self.convnets.append(get_convnet(self.args)) #the pretrained model itself
 
-        self.convnets.append(tuned_model.convnet) #adappted tuned model
-    
+        if isinstance(tuned_model, nn.DataParallel):
+            self.convnets.append(tuned_model.module.convnet)
+        else:
+            self.convnets.append(tuned_model.convnet) #adappted tuned model
+
         self._feature_dim = self.convnets[0].out_dim * len(self.convnets) 
         self.fc=self.generate_fc(self._feature_dim,self.args['init_cls'])
         

@@ -29,7 +29,7 @@ class Learner(BaseLearner):
         embedding_list = []
         label_list = []
         with torch.no_grad():
-            for i, batch in enumerate(trainloader):
+            for i, batch in tqdm(enumerate(trainloader), total=len(trainloader), desc="Evaluating"):
                 (_,data,label)=batch
                 data=data.cuda()
                 label=label.cuda()

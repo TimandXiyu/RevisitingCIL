@@ -1,6 +1,11 @@
 import numpy as np
 from torchvision import datasets, transforms
 from utils.toolkit import split_images_labels
+from albumentations import (
+    Compose, RandomResizedCrop, HorizontalFlip, Resize, CenterCrop,
+    Normalize, ToFloat, RandomBrightnessContrast, GaussNoise, GaussianBlur, RGBShift, ColorJitter,
+)
+from albumentations.pytorch import ToTensorV2
 
 
 class iData(object):
@@ -91,6 +96,41 @@ def build_transform(is_train, args):
     
     # return transforms.Compose(t)
     return t
+
+
+def build_albumentations_transform(is_train, args):
+    input_size = 224
+    resize_im = input_size > 32
+    if is_train:
+        scale = (0.05, 1.0)
+        ratio = (3. / 4., 4. / 3.)
+
+        transform = Compose([
+            RandomResizedCrop(height=input_size, width=input_size, scale=scale, ratio=ratio),
+            HorizontalFlip(p=0.5),
+            RandomBrightnessContrast(p=0.5),
+            ColorJitter(p=0.5),
+            GaussNoise(p=0.5, var_limit=(10.0, 100.0)),
+            RGBShift(r_shift_limit=50, g_shift_limit=50, b_shift_limit=50, p=0.5),
+            # Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            ToFloat(),
+            ToTensorV2()
+        ])
+        return transform
+
+    t = []
+    if resize_im:
+        size = int((256 / 224) * input_size)
+        t.append(
+            transforms.Resize(size, interpolation=3),  # to maintain same ratio w.r.t. 224 images
+        )
+        t.append(transforms.CenterCrop(input_size))
+    t.append(transforms.ToTensor())
+
+    # return transforms.Compose(t)
+    return t
+
+
 
 class iCIFAR224(iData):
     use_path = False
@@ -262,8 +302,8 @@ class objectnet(iData):
 class omnibenchmark(iData):
     use_path = True
     
-    train_trsf=build_transform(True, None)
-    test_trsf=build_transform(False, None)
+    train_trsf=build_albumentations_transform(True, None)
+    test_trsf=build_albumentations_transform(False, None)
     common_trsf = [    ]
 
     class_order = np.arange(300).tolist()

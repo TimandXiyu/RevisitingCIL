@@ -6,6 +6,7 @@ from torch import nn
 from torch.utils.data import DataLoader
 from utils.toolkit import tensor2numpy, accuracy
 from scipy.spatial.distance import cdist
+from tqdm import tqdm
 
 EPSILON = 1e-8
 batch_size = 64
@@ -138,7 +139,9 @@ class BaseLearner(object):
     def _compute_accuracy(self, model, loader):
         model.eval()
         correct, total = 0, 0
-        for i, (_, inputs, targets) in enumerate(loader):
+        for i, (_, inputs, targets) in tqdm(enumerate(loader), desc='Evaluating'):
+            if isinstance(inputs, dict):
+                inputs = inputs['image']
             inputs = inputs.to(self._device)
             with torch.no_grad():
                 outputs = model(inputs)["logits"]
@@ -152,6 +155,8 @@ class BaseLearner(object):
         self._network.eval()
         y_pred, y_true = [], []
         for _, (_, inputs, targets) in enumerate(loader):
+            if isinstance(inputs, dict):
+                inputs = inputs['image']
             inputs = inputs.to(self._device)
             with torch.no_grad():
                 outputs = self._network(inputs)["logits"]
