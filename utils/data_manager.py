@@ -8,7 +8,7 @@ from albumentations import Compose as A_Compose
 
 
 class DataManager(object):
-    def __init__(self, dataset_name, shuffle, seed, init_cls, increment, use_A=True):
+    def __init__(self, dataset_name, shuffle, seed, init_cls, increment, use_A=False):
         self.dataset_name = dataset_name
         self._setup_data(dataset_name, shuffle, seed)
         assert init_cls <= len(self._class_order), "No enough classes."

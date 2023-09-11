@@ -6,6 +6,7 @@ from albumentations import (
     Normalize, ToFloat, RandomBrightnessContrast, GaussNoise, GaussianBlur, RGBShift, ColorJitter,
 )
 from albumentations.pytorch import ToTensorV2
+from utils.augment import RandomHLS, RandomWhiteNoise
 
 
 class iData(object):
@@ -81,6 +82,8 @@ def build_transform(is_train, args):
         transform = [
             transforms.RandomResizedCrop(input_size, scale=scale, ratio=ratio),
             transforms.RandomHorizontalFlip(p=0.5),
+            # RandomHLS(vars=[15, 35, 25]),
+            # RandomWhiteNoise(),
             transforms.ToTensor(),
         ]
         return transform
@@ -302,8 +305,8 @@ class objectnet(iData):
 class omnibenchmark(iData):
     use_path = True
     
-    train_trsf=build_albumentations_transform(True, None)
-    test_trsf=build_albumentations_transform(False, None)
+    train_trsf=build_transform(True, None)
+    test_trsf=build_transform(False, None)
     common_trsf = [    ]
 
     class_order = np.arange(300).tolist()

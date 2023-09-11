@@ -6,6 +6,7 @@ from utils import factory
 from utils.data_manager import DataManager
 from utils.toolkit import count_parameters
 import os
+from datetime import datetime
 
 
 def train(args):
@@ -19,14 +20,14 @@ def train(args):
 
 
 def _train(args):
-
+    current_date = datetime.now().strftime("%Y-%m-%d")
     init_cls = 0 if args ["init_cls"] == args["increment"] else args["init_cls"]
     logs_name = "logs/{}/{}/{}/{}".format(args["model_name"],args["dataset"], init_cls, args['increment'])
     
     if not os.path.exists(logs_name):
         os.makedirs(logs_name)
 
-    logfilename = "logs/{}/{}/{}/{}/{}_{}_{}".format(
+    logfilename = "logs/{}/{}/{}/{}/{}_{}_{}_{}".format(
         args["model_name"],
         args["dataset"],
         init_cls,
@@ -34,6 +35,7 @@ def _train(args):
         args["prefix"],
         args["seed"],
         args["convnet_type"],
+        current_date
     )
     logging.basicConfig(
         level=logging.INFO,
@@ -53,7 +55,7 @@ def _train(args):
         args["seed"],
         args["init_cls"],
         args["increment"],
-        args['use_A']
+        # args['use_A']
     )
     model = factory.get_model(args["model_name"], args)
 

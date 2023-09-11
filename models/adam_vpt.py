@@ -44,7 +44,7 @@ class Learner(BaseLearner):
         label_list = []
         # data_list=[]
         with torch.no_grad():
-            for i, batch in enumerate(trainloader):
+            for i, batch in tqdm(enumerate(trainloader), total=len(trainloader), desc="Generating Prototypes: "):
                 (_,data,label)=batch
                 data=data.cuda()
                 label=label.cuda()
@@ -61,7 +61,10 @@ class Learner(BaseLearner):
             data_index=(label_list==class_index).nonzero().squeeze(-1)
             embedding=embedding_list[data_index]
             proto=embedding.mean(0)
-            self._network.fc.weight.data[class_index]=proto
+            if isinstance(self._network, torch.nn.DataParallel):
+                self._network.module.fc.weight.data[class_index] = proto
+            else:
+                self._network.fc.weight.data[class_index] = proto
         return model
 
 
@@ -88,7 +91,9 @@ class Learner(BaseLearner):
             self._network = nn.DataParallel(self._network, self._multiple_gpus)
         self._train(self.train_loader, self.test_loader, self.train_loader_for_protonet)
         if len(self._multiple_gpus) > 1:
-            self._network = self._network.module
+            # check if _network is DataParallel
+            if isinstance(self._network, nn.DataParallel):
+                self._network = self._network.module
 
     def _train(self, train_loader, test_loader, train_loader_for_protonet):
         
@@ -131,12 +136,12 @@ class Learner(BaseLearner):
         self._network=network.to(self._device)
 
     def _init_train(self, train_loader, test_loader, optimizer, scheduler):
-        prog_bar = tqdm(range(self.args['tuned_epoch']))
+        prog_bar = range(self.args['tuned_epoch'])
         for _, epoch in enumerate(prog_bar):
             self._network.train()
             losses = 0.0
             correct, total = 0, 0
-            for i, (_, inputs, targets) in enumerate(train_loader):
+            for i, (_, inputs, targets) in tqdm(enumerate(train_loader), total=len(train_loader), desc="Training: "):
                 inputs, targets = inputs.to(self._device), targets.to(self._device)
                 logits = self._network(inputs)["logits"]
 
@@ -171,8 +176,7 @@ class Learner(BaseLearner):
                     train_acc,
                     test_acc,
                 )
-            prog_bar.set_description(info)
 
-        logging.info(info)
+            logging.info(info)
 
     

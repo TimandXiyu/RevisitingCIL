@@ -19,7 +19,7 @@ from collections import OrderedDict
 import torch
 import torch.nn as nn
 from timm.models.vision_transformer import PatchEmbed
-from timm.models.registry import register_model
+from torch.nn import functional as F
 
 import logging
 import os
@@ -57,6 +57,7 @@ class Adapter(nn.Module):
         self.non_linear_func = nn.ReLU()
         self.up_proj = nn.Linear(self.down_size, self.n_embd)
 
+
         self.dropout = dropout
         if init_option == "bert":
             raise NotImplementedError
@@ -90,6 +91,71 @@ class Adapter(nn.Module):
         return output
 
 
+class Conv_Adapter(nn.Module):
+    def __init__(self,
+                 config=None,
+                 d_model=None,
+                 bottleneck=None,
+                 dropout=0.0,
+                 init_option="bert",
+                 adapter_scalar="1.0",
+                 adapter_layernorm_option="in"):
+        super().__init__()
+        self.n_embd = config.d_model if d_model is None else d_model
+        self.down_size = config.attn_bn if bottleneck is None else bottleneck
+
+        #_before
+        self.adapter_layernorm_option = adapter_layernorm_option
+
+        self.adapter_layer_norm_before = None
+        if adapter_layernorm_option == "in" or adapter_layernorm_option == "out":
+            self.adapter_layer_norm_before = nn.LayerNorm(self.n_embd)
+
+        if adapter_scalar == "learnable_scalar":
+            self.scale = nn.Parameter(torch.ones(1))
+        else:
+            self.scale = float(adapter_scalar)
+
+        self.non_linear_func = nn.ReLU()
+        self.conv_down1 = nn.Conv2d(self.n_embd, self.down_size, kernel_size=1)
+        self.conv_3x3 = nn.Conv2d(self.down_size, self.down_size, kernel_size=3, padding=1)
+        self.conv_up1 = nn.Conv2d(self.down_size, self.n_embd, kernel_size=1)
+
+        self.dropout = dropout
+        if init_option == "bert":
+            raise NotImplementedError
+        elif init_option == "lora":
+            with torch.no_grad():
+                nn.init.kaiming_uniform_(self.conv_down1.weight, a=math.sqrt(5))
+                nn.init.zeros_(self.conv_down1.bias)
+                nn.init.zeros_(self.conv_3x3.weight)
+                nn.init.zeros_(self.conv_3x3.bias)
+                nn.init.zeros_(self.conv_up1.weight)
+                nn.init.zeros_(self.conv_up1.bias)
+
+
+    def forward(self, x, add_residual=True, residual=None):
+        residual = x if residual is None else residual
+        if self.adapter_layernorm_option == 'in':
+            x = self.adapter_layer_norm_before(x)
+
+        pos_embed = x[:, 0, :].unsqueeze(1)
+        original_pos_embed = pos_embed.clone()
+
+        x = x[:, 1:, :]
+        x = x.reshape(x.size(0), 14, 14, x.size(-1)).permute(0, 3, 1, 2)
+
+        x_down = F.relu(self.conv_down1(x))
+        x_3x3 = F.relu(self.conv_3x3(x_down))
+        x_3x3 = nn.functional.dropout(x_3x3, p=self.dropout, training=self.training)
+        x_up = self.conv_up1(x_3x3)
+        x_up = x_up.permute(0, 2, 3, 1).reshape(x.size(0), 196, -1)
+        x_up = torch.cat([original_pos_embed, x_up], dim=1) * self.scale
+
+        if add_residual:
+            return x_up + residual
+        else:
+            return x_up
 
 
 
@@ -161,6 +227,11 @@ class Block(nn.Module):
                                     adapter_scalar=config.ffn_adapter_scalar,
                                     adapter_layernorm_option=config.ffn_adapter_layernorm_option,
                                     )
+            # self.adaptmlp = Conv_Adapter(self.config, dropout=0.1, bottleneck=config.ffn_num,
+            #                              init_option=config.ffn_adapter_init_option,
+            #                              adapter_scalar=config.ffn_adapter_scalar,
+            #                              adapter_layernorm_option=config.ffn_adapter_layernorm_option,
+            #                              )
 
     def forward(self, x):
         x = x + self.drop_path(self.attn(self.norm1(x)))

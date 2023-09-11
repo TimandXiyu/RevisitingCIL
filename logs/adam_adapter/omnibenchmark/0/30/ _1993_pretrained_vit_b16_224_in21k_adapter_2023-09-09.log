@@ -1,0 +1,952 @@
+2023-09-09 14:29:43,884 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 14:29:43,885 [trainer.py] => prefix:  
+2023-09-09 14:29:43,885 [trainer.py] => dataset: omnibenchmark
+2023-09-09 14:29:43,885 [trainer.py] => memory_size: 0
+2023-09-09 14:29:43,885 [trainer.py] => memory_per_class: 0
+2023-09-09 14:29:43,885 [trainer.py] => fixed_memory: False
+2023-09-09 14:29:43,885 [trainer.py] => shuffle: True
+2023-09-09 14:29:43,885 [trainer.py] => init_cls: 30
+2023-09-09 14:29:43,885 [trainer.py] => increment: 30
+2023-09-09 14:29:43,885 [trainer.py] => model_name: adam_adapter
+2023-09-09 14:29:43,885 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 14:29:43,885 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 14:29:43,886 [trainer.py] => seed: 1993
+2023-09-09 14:29:43,886 [trainer.py] => tuned_epoch: 1
+2023-09-09 14:29:43,886 [trainer.py] => init_lr: 0.02
+2023-09-09 14:29:43,886 [trainer.py] => batch_size: 96
+2023-09-09 14:29:43,886 [trainer.py] => use_A: True
+2023-09-09 14:29:43,886 [trainer.py] => weight_decay: 0.0005
+2023-09-09 14:29:43,886 [trainer.py] => min_lr: 0
+2023-09-09 14:29:43,886 [trainer.py] => ffn_num: 64
+2023-09-09 14:29:43,886 [trainer.py] => optimizer: sgd
+2023-09-09 14:29:43,886 [trainer.py] => vpt_type: shallow
+2023-09-09 14:29:43,886 [trainer.py] => prompt_token_num: 5
+2023-09-09 14:29:44,574 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 14:29:47,061 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 14:29:47,702 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 14:29:47,813 [trainer.py] => All params: 86988288
+2023-09-09 14:29:47,827 [trainer.py] => Trainable params: 1189632
+2023-09-09 14:29:47,968 [adam_adapter.py] => Learning on 0-30
+2023-09-09 14:30:59,842 [adam_adapter.py] => Task 0, Epoch 1/1 => Loss 3.022, Train_accy 54.71, Test_accy 80.33
+2023-09-09 14:31:00,953 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 14:31:01,234 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 14:31:02,162 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 14:31:02,433 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 14:32:50,249 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 14:32:50,249 [trainer.py] => prefix:  
+2023-09-09 14:32:50,249 [trainer.py] => dataset: omnibenchmark
+2023-09-09 14:32:50,249 [trainer.py] => memory_size: 0
+2023-09-09 14:32:50,249 [trainer.py] => memory_per_class: 0
+2023-09-09 14:32:50,249 [trainer.py] => fixed_memory: False
+2023-09-09 14:32:50,249 [trainer.py] => shuffle: True
+2023-09-09 14:32:50,249 [trainer.py] => init_cls: 30
+2023-09-09 14:32:50,250 [trainer.py] => increment: 30
+2023-09-09 14:32:50,250 [trainer.py] => model_name: adam_adapter
+2023-09-09 14:32:50,250 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 14:32:50,250 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 14:32:50,250 [trainer.py] => seed: 1993
+2023-09-09 14:32:50,250 [trainer.py] => tuned_epoch: 1
+2023-09-09 14:32:50,250 [trainer.py] => init_lr: 0.02
+2023-09-09 14:32:50,250 [trainer.py] => batch_size: 96
+2023-09-09 14:32:50,250 [trainer.py] => use_A: True
+2023-09-09 14:32:50,250 [trainer.py] => weight_decay: 0.0005
+2023-09-09 14:32:50,250 [trainer.py] => min_lr: 0
+2023-09-09 14:32:50,250 [trainer.py] => ffn_num: 64
+2023-09-09 14:32:50,251 [trainer.py] => optimizer: sgd
+2023-09-09 14:32:50,251 [trainer.py] => vpt_type: shallow
+2023-09-09 14:32:50,251 [trainer.py] => prompt_token_num: 5
+2023-09-09 14:32:50,940 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 14:32:53,409 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 14:32:53,899 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 14:32:53,984 [trainer.py] => All params: 86988288
+2023-09-09 14:32:53,996 [trainer.py] => Trainable params: 1189632
+2023-09-09 14:32:54,146 [adam_adapter.py] => Learning on 0-30
+2023-09-09 14:34:06,632 [adam_adapter.py] => Task 0, Epoch 1/1 => Loss 3.022, Train_accy 54.71, Test_accy 80.33
+2023-09-09 14:34:07,822 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 14:34:08,072 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 14:34:09,054 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 14:34:09,304 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 14:36:05,972 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 14:36:05,972 [trainer.py] => prefix:  
+2023-09-09 14:36:05,972 [trainer.py] => dataset: omnibenchmark
+2023-09-09 14:36:05,972 [trainer.py] => memory_size: 0
+2023-09-09 14:36:05,972 [trainer.py] => memory_per_class: 0
+2023-09-09 14:36:05,972 [trainer.py] => fixed_memory: False
+2023-09-09 14:36:05,972 [trainer.py] => shuffle: True
+2023-09-09 14:36:05,972 [trainer.py] => init_cls: 30
+2023-09-09 14:36:05,972 [trainer.py] => increment: 30
+2023-09-09 14:36:05,972 [trainer.py] => model_name: adam_adapter
+2023-09-09 14:36:05,973 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 14:36:05,973 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 14:36:05,973 [trainer.py] => seed: 1993
+2023-09-09 14:36:05,973 [trainer.py] => tuned_epoch: 1
+2023-09-09 14:36:05,973 [trainer.py] => init_lr: 0.02
+2023-09-09 14:36:05,973 [trainer.py] => batch_size: 96
+2023-09-09 14:36:05,973 [trainer.py] => use_A: True
+2023-09-09 14:36:05,973 [trainer.py] => weight_decay: 0.0005
+2023-09-09 14:36:05,973 [trainer.py] => min_lr: 0
+2023-09-09 14:36:05,973 [trainer.py] => ffn_num: 64
+2023-09-09 14:36:05,974 [trainer.py] => optimizer: sgd
+2023-09-09 14:36:05,974 [trainer.py] => vpt_type: shallow
+2023-09-09 14:36:05,974 [trainer.py] => prompt_token_num: 5
+2023-09-09 14:36:05,974 [trainer.py] => refine_iterations: 5
+2023-09-09 14:36:06,655 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 14:36:09,199 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 14:36:09,719 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 14:36:09,832 [trainer.py] => All params: 86988288
+2023-09-09 14:36:09,846 [trainer.py] => Trainable params: 1189632
+2023-09-09 14:36:09,996 [adam_adapter.py] => Learning on 0-30
+2023-09-09 14:37:22,411 [adam_adapter.py] => Task 0, Epoch 1/1 => Loss 3.022, Train_accy 54.71, Test_accy 80.33
+2023-09-09 14:37:23,518 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 14:37:24,227 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 14:37:24,938 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 14:37:25,202 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 14:49:53,104 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 14:49:53,105 [trainer.py] => prefix:  
+2023-09-09 14:49:53,105 [trainer.py] => dataset: omnibenchmark
+2023-09-09 14:49:53,105 [trainer.py] => memory_size: 0
+2023-09-09 14:49:53,105 [trainer.py] => memory_per_class: 0
+2023-09-09 14:49:53,105 [trainer.py] => fixed_memory: False
+2023-09-09 14:49:53,105 [trainer.py] => shuffle: True
+2023-09-09 14:49:53,105 [trainer.py] => init_cls: 30
+2023-09-09 14:49:53,105 [trainer.py] => increment: 30
+2023-09-09 14:49:53,105 [trainer.py] => model_name: adam_adapter
+2023-09-09 14:49:53,105 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 14:49:53,106 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 14:49:53,106 [trainer.py] => seed: 1993
+2023-09-09 14:49:53,106 [trainer.py] => tuned_epoch: 1
+2023-09-09 14:49:53,106 [trainer.py] => init_lr: 0.02
+2023-09-09 14:49:53,106 [trainer.py] => batch_size: 96
+2023-09-09 14:49:53,106 [trainer.py] => use_A: True
+2023-09-09 14:49:53,106 [trainer.py] => weight_decay: 0.0005
+2023-09-09 14:49:53,106 [trainer.py] => min_lr: 0
+2023-09-09 14:49:53,106 [trainer.py] => ffn_num: 64
+2023-09-09 14:49:53,106 [trainer.py] => optimizer: sgd
+2023-09-09 14:49:53,106 [trainer.py] => vpt_type: shallow
+2023-09-09 14:49:53,107 [trainer.py] => prompt_token_num: 5
+2023-09-09 14:49:53,107 [trainer.py] => refine_iterations: 3
+2023-09-09 14:49:53,780 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 14:49:56,263 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 14:49:56,757 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 14:49:56,870 [trainer.py] => All params: 86988288
+2023-09-09 14:49:56,883 [trainer.py] => Trainable params: 1189632
+2023-09-09 14:49:57,042 [adam_adapter.py] => Learning on 0-30
+2023-09-09 14:54:28,249 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 14:54:28,249 [trainer.py] => prefix:  
+2023-09-09 14:54:28,249 [trainer.py] => dataset: omnibenchmark
+2023-09-09 14:54:28,249 [trainer.py] => memory_size: 0
+2023-09-09 14:54:28,249 [trainer.py] => memory_per_class: 0
+2023-09-09 14:54:28,249 [trainer.py] => fixed_memory: False
+2023-09-09 14:54:28,249 [trainer.py] => shuffle: True
+2023-09-09 14:54:28,249 [trainer.py] => init_cls: 30
+2023-09-09 14:54:28,249 [trainer.py] => increment: 30
+2023-09-09 14:54:28,250 [trainer.py] => model_name: adam_adapter
+2023-09-09 14:54:28,250 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 14:54:28,250 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 14:54:28,250 [trainer.py] => seed: 1993
+2023-09-09 14:54:28,250 [trainer.py] => tuned_epoch: 20
+2023-09-09 14:54:28,250 [trainer.py] => init_lr: 0.02
+2023-09-09 14:54:28,250 [trainer.py] => batch_size: 96
+2023-09-09 14:54:28,250 [trainer.py] => use_A: True
+2023-09-09 14:54:28,250 [trainer.py] => weight_decay: 0.0005
+2023-09-09 14:54:28,250 [trainer.py] => min_lr: 0
+2023-09-09 14:54:28,250 [trainer.py] => ffn_num: 64
+2023-09-09 14:54:28,251 [trainer.py] => optimizer: sgd
+2023-09-09 14:54:28,251 [trainer.py] => vpt_type: shallow
+2023-09-09 14:54:28,251 [trainer.py] => prompt_token_num: 5
+2023-09-09 14:54:28,251 [trainer.py] => refine_iterations: 3
+2023-09-09 14:54:28,948 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 14:54:31,390 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 14:54:31,894 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 14:54:32,006 [trainer.py] => All params: 86988288
+2023-09-09 14:54:32,017 [trainer.py] => Trainable params: 1189632
+2023-09-09 14:54:32,154 [adam_adapter.py] => Learning on 0-30
+2023-09-09 14:55:48,992 [adam_adapter.py] => Task 0, Epoch 1/20 => Loss 3.022, Train_accy 54.71, Test_accy 80.33
+2023-09-09 14:57:26,587 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 14:57:26,587 [trainer.py] => prefix:  
+2023-09-09 14:57:26,587 [trainer.py] => dataset: omnibenchmark
+2023-09-09 14:57:26,587 [trainer.py] => memory_size: 0
+2023-09-09 14:57:26,587 [trainer.py] => memory_per_class: 0
+2023-09-09 14:57:26,587 [trainer.py] => fixed_memory: False
+2023-09-09 14:57:26,587 [trainer.py] => shuffle: True
+2023-09-09 14:57:26,588 [trainer.py] => init_cls: 30
+2023-09-09 14:57:26,588 [trainer.py] => increment: 30
+2023-09-09 14:57:26,588 [trainer.py] => model_name: adam_adapter
+2023-09-09 14:57:26,588 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 14:57:26,588 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 14:57:26,588 [trainer.py] => seed: 1993
+2023-09-09 14:57:26,588 [trainer.py] => tuned_epoch: 20
+2023-09-09 14:57:26,588 [trainer.py] => init_lr: 0.02
+2023-09-09 14:57:26,588 [trainer.py] => batch_size: 96
+2023-09-09 14:57:26,588 [trainer.py] => use_A: True
+2023-09-09 14:57:26,588 [trainer.py] => weight_decay: 0.0005
+2023-09-09 14:57:26,589 [trainer.py] => min_lr: 0
+2023-09-09 14:57:26,589 [trainer.py] => ffn_num: 64
+2023-09-09 14:57:26,589 [trainer.py] => optimizer: sgd
+2023-09-09 14:57:26,589 [trainer.py] => vpt_type: shallow
+2023-09-09 14:57:26,589 [trainer.py] => prompt_token_num: 5
+2023-09-09 14:57:26,589 [trainer.py] => refine_iterations: 3
+2023-09-09 14:57:27,281 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 14:57:29,820 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 14:57:30,305 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 14:57:30,418 [trainer.py] => All params: 86988288
+2023-09-09 14:57:30,432 [trainer.py] => Trainable params: 1189632
+2023-09-09 14:57:30,573 [adam_adapter.py] => Learning on 0-30
+2023-09-09 14:57:41,004 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 14:57:41,005 [trainer.py] => prefix:  
+2023-09-09 14:57:41,005 [trainer.py] => dataset: omnibenchmark
+2023-09-09 14:57:41,005 [trainer.py] => memory_size: 0
+2023-09-09 14:57:41,005 [trainer.py] => memory_per_class: 0
+2023-09-09 14:57:41,005 [trainer.py] => fixed_memory: False
+2023-09-09 14:57:41,005 [trainer.py] => shuffle: True
+2023-09-09 14:57:41,005 [trainer.py] => init_cls: 30
+2023-09-09 14:57:41,005 [trainer.py] => increment: 30
+2023-09-09 14:57:41,005 [trainer.py] => model_name: adam_adapter
+2023-09-09 14:57:41,005 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 14:57:41,006 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 14:57:41,006 [trainer.py] => seed: 1993
+2023-09-09 14:57:41,006 [trainer.py] => tuned_epoch: 1
+2023-09-09 14:57:41,006 [trainer.py] => init_lr: 0.02
+2023-09-09 14:57:41,006 [trainer.py] => batch_size: 96
+2023-09-09 14:57:41,006 [trainer.py] => use_A: True
+2023-09-09 14:57:41,006 [trainer.py] => weight_decay: 0.0005
+2023-09-09 14:57:41,006 [trainer.py] => min_lr: 0
+2023-09-09 14:57:41,006 [trainer.py] => ffn_num: 64
+2023-09-09 14:57:41,006 [trainer.py] => optimizer: sgd
+2023-09-09 14:57:41,007 [trainer.py] => vpt_type: shallow
+2023-09-09 14:57:41,007 [trainer.py] => prompt_token_num: 5
+2023-09-09 14:57:41,007 [trainer.py] => refine_iterations: 3
+2023-09-09 14:57:41,711 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 14:57:44,193 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 14:57:44,689 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 14:57:44,799 [trainer.py] => All params: 86988288
+2023-09-09 14:57:44,813 [trainer.py] => Trainable params: 1189632
+2023-09-09 14:57:44,953 [adam_adapter.py] => Learning on 0-30
+2023-09-09 14:58:57,046 [adam_adapter.py] => Task 0, Epoch 1/1 => Loss 3.022, Train_accy 54.71, Test_accy 80.33
+2023-09-09 14:58:58,303 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 14:58:58,558 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 14:58:59,282 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 14:58:59,530 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 15:05:53,662 [trainer.py] => No NME accuracy.
+2023-09-09 15:05:53,662 [trainer.py] => CNN: {'total': 84.83, '00-09': 88.5, '10-19': 86.5, '20-29': 79.5, 'old': 0, 'new': 84.83}
+2023-09-09 15:05:53,662 [trainer.py] => CNN top1 curve: [84.83]
+2023-09-09 15:05:53,662 [trainer.py] => CNN top5 curve: [97.83]
+
+2023-09-09 15:05:53,663 [trainer.py] => Average Accuracy (CNN): 84.83
+2023-09-09 15:05:53,688 [trainer.py] => All params: 172833025
+2023-09-09 15:05:53,712 [trainer.py] => Trainable params: 87034369
+2023-09-09 15:05:53,713 [adam_adapter.py] => Learning on 30-60
+2023-09-09 15:14:17,563 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 15:14:17,563 [trainer.py] => prefix:  
+2023-09-09 15:14:17,563 [trainer.py] => dataset: omnibenchmark
+2023-09-09 15:14:17,563 [trainer.py] => memory_size: 0
+2023-09-09 15:14:17,563 [trainer.py] => memory_per_class: 0
+2023-09-09 15:14:17,563 [trainer.py] => fixed_memory: False
+2023-09-09 15:14:17,563 [trainer.py] => shuffle: True
+2023-09-09 15:14:17,564 [trainer.py] => init_cls: 30
+2023-09-09 15:14:17,564 [trainer.py] => increment: 30
+2023-09-09 15:14:17,564 [trainer.py] => model_name: adam_adapter
+2023-09-09 15:14:17,564 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 15:14:17,564 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 15:14:17,564 [trainer.py] => seed: 1993
+2023-09-09 15:14:17,564 [trainer.py] => tuned_epoch: 20
+2023-09-09 15:14:17,564 [trainer.py] => init_lr: 0.02
+2023-09-09 15:14:17,564 [trainer.py] => batch_size: 96
+2023-09-09 15:14:17,564 [trainer.py] => use_A: True
+2023-09-09 15:14:17,564 [trainer.py] => weight_decay: 0.0005
+2023-09-09 15:14:17,564 [trainer.py] => min_lr: 0
+2023-09-09 15:14:17,564 [trainer.py] => ffn_num: 64
+2023-09-09 15:14:17,564 [trainer.py] => optimizer: sgd
+2023-09-09 15:14:17,564 [trainer.py] => vpt_type: shallow
+2023-09-09 15:14:17,564 [trainer.py] => prompt_token_num: 5
+2023-09-09 15:14:17,564 [trainer.py] => refine_iterations: 2
+2023-09-09 15:14:17,755 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 15:14:19,579 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 15:14:20,062 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 15:14:20,128 [trainer.py] => All params: 86988288
+2023-09-09 15:14:20,128 [trainer.py] => Trainable params: 1189632
+2023-09-09 15:14:20,278 [adam_adapter.py] => Learning on 0-30
+2023-09-09 15:15:26,248 [adam_adapter.py] => Task 0, Epoch 1/20 => Loss 3.022, Train_accy 54.71, Test_accy 80.33
+2023-09-09 15:16:32,703 [adam_adapter.py] => Task 0, Epoch 2/20 => Loss 1.099, Train_accy 79.69, Test_accy 86.67
+2023-09-09 15:17:39,424 [adam_adapter.py] => Task 0, Epoch 3/20 => Loss 0.615, Train_accy 82.21, Test_accy 88.33
+2023-09-09 15:18:46,233 [adam_adapter.py] => Task 0, Epoch 4/20 => Loss 0.537, Train_accy 83.66, Test_accy 87.33
+2023-09-09 15:19:52,320 [adam_adapter.py] => Task 0, Epoch 5/20 => Loss 0.506, Train_accy 84.25, Test_accy 91.00
+2023-09-09 15:20:58,955 [adam_adapter.py] => Task 0, Epoch 6/20 => Loss 0.480, Train_accy 85.70, Test_accy 90.00
+2023-09-09 15:22:05,221 [adam_adapter.py] => Task 0, Epoch 7/20 => Loss 0.471, Train_accy 85.47, Test_accy 90.50
+2023-09-09 15:23:11,879 [adam_adapter.py] => Task 0, Epoch 8/20 => Loss 0.439, Train_accy 86.55, Test_accy 90.33
+2023-09-09 15:24:18,465 [adam_adapter.py] => Task 0, Epoch 9/20 => Loss 0.440, Train_accy 86.67, Test_accy 91.33
+2023-09-09 15:25:25,536 [adam_adapter.py] => Task 0, Epoch 10/20 => Loss 0.433, Train_accy 86.93, Test_accy 91.67
+2023-09-09 15:26:32,055 [adam_adapter.py] => Task 0, Epoch 11/20 => Loss 0.418, Train_accy 87.54, Test_accy 90.67
+2023-09-09 15:27:38,379 [adam_adapter.py] => Task 0, Epoch 12/20 => Loss 0.409, Train_accy 88.14, Test_accy 91.67
+2023-09-09 15:28:44,769 [adam_adapter.py] => Task 0, Epoch 13/20 => Loss 0.395, Train_accy 87.90, Test_accy 91.67
+2023-09-09 15:29:51,770 [adam_adapter.py] => Task 0, Epoch 14/20 => Loss 0.397, Train_accy 87.81, Test_accy 90.33
+2023-09-09 15:30:58,413 [adam_adapter.py] => Task 0, Epoch 15/20 => Loss 0.401, Train_accy 88.10, Test_accy 91.17
+2023-09-09 15:32:05,062 [adam_adapter.py] => Task 0, Epoch 16/20 => Loss 0.398, Train_accy 87.93, Test_accy 91.50
+2023-09-09 15:33:11,966 [adam_adapter.py] => Task 0, Epoch 17/20 => Loss 0.386, Train_accy 88.57, Test_accy 91.50
+2023-09-09 15:34:18,671 [adam_adapter.py] => Task 0, Epoch 18/20 => Loss 0.388, Train_accy 88.14, Test_accy 91.83
+2023-09-09 15:35:25,067 [adam_adapter.py] => Task 0, Epoch 19/20 => Loss 0.384, Train_accy 88.52, Test_accy 92.00
+2023-09-09 15:36:31,760 [adam_adapter.py] => Task 0, Epoch 20/20 => Loss 0.387, Train_accy 88.50, Test_accy 92.00
+2023-09-09 15:36:32,862 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 15:36:33,346 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 15:36:34,272 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 15:36:34,513 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 15:40:17,408 [trainer.py] => No NME accuracy.
+2023-09-09 15:40:17,408 [trainer.py] => CNN: {'total': 87.0, '00-09': 89.0, '10-19': 89.5, '20-29': 82.5, 'old': 0, 'new': 87.0}
+2023-09-09 15:40:17,408 [trainer.py] => CNN top1 curve: [87.0]
+2023-09-09 15:40:17,408 [trainer.py] => CNN top5 curve: [98.33]
+
+2023-09-09 15:40:17,408 [trainer.py] => Average Accuracy (CNN): 87.0
+2023-09-09 15:40:17,410 [trainer.py] => All params: 172833025
+2023-09-09 15:40:17,411 [trainer.py] => Trainable params: 87034369
+2023-09-09 15:40:17,413 [adam_adapter.py] => Learning on 30-60
+2023-09-09 15:44:05,592 [trainer.py] => No NME accuracy.
+2023-09-09 15:44:05,593 [trainer.py] => CNN: {'total': 86.66, '00-09': 84.0, '10-19': 89.5, '20-29': 80.0, '30-39': 89.0, '40-49': 84.5, '50-59': 92.96, 'old': 84.5, 'new': 88.81}
+2023-09-09 15:44:05,593 [trainer.py] => CNN top1 curve: [87.0, 86.66]
+2023-09-09 15:44:05,593 [trainer.py] => CNN top5 curve: [98.33, 97.91]
+
+2023-09-09 15:44:05,593 [trainer.py] => Average Accuracy (CNN): 86.83
+2023-09-09 15:44:05,595 [trainer.py] => All params: 172879105
+2023-09-09 15:44:05,595 [trainer.py] => Trainable params: 87080449
+2023-09-09 15:44:05,597 [adam_adapter.py] => Learning on 60-90
+2023-09-09 15:47:52,195 [trainer.py] => No NME accuracy.
+2023-09-09 15:47:52,195 [trainer.py] => CNN: {'total': 83.65, '00-09': 81.5, '10-19': 84.0, '20-29': 77.0, '30-39': 88.0, '40-49': 84.0, '50-59': 91.96, '60-69': 88.0, '70-79': 83.0, '80-89': 75.38, 'old': 84.4, 'new': 82.14}
+2023-09-09 15:47:52,195 [trainer.py] => CNN top1 curve: [87.0, 86.66, 83.65]
+2023-09-09 15:47:52,195 [trainer.py] => CNN top5 curve: [98.33, 97.91, 96.33]
+
+2023-09-09 15:47:52,195 [trainer.py] => Average Accuracy (CNN): 85.77
+2023-09-09 15:47:52,196 [trainer.py] => All params: 172925185
+2023-09-09 15:47:52,197 [trainer.py] => Trainable params: 87126529
+2023-09-09 15:47:52,198 [adam_adapter.py] => Learning on 90-120
+2023-09-09 15:51:53,044 [trainer.py] => No NME accuracy.
+2023-09-09 15:51:53,045 [trainer.py] => CNN: {'total': 80.21, '00-09': 79.5, '10-19': 81.5, '20-29': 76.5, '30-39': 87.5, '40-49': 81.5, '50-59': 87.94, '60-69': 84.5, '70-79': 80.0, '80-89': 71.36, '90-99': 81.91, '100-109': 77.39, '110-119': 72.86, 'old': 81.15, 'new': 77.39}
+2023-09-09 15:51:53,045 [trainer.py] => CNN top1 curve: [87.0, 86.66, 83.65, 80.21]
+2023-09-09 15:51:53,045 [trainer.py] => CNN top5 curve: [98.33, 97.91, 96.33, 95.49]
+
+2023-09-09 15:51:53,045 [trainer.py] => Average Accuracy (CNN): 84.38
+2023-09-09 15:51:53,046 [trainer.py] => All params: 172971265
+2023-09-09 15:51:53,047 [trainer.py] => Trainable params: 87172609
+2023-09-09 15:51:53,048 [adam_adapter.py] => Learning on 120-150
+2023-09-09 15:55:58,267 [trainer.py] => No NME accuracy.
+2023-09-09 15:55:58,267 [trainer.py] => CNN: {'total': 77.86, '00-09': 76.0, '10-19': 81.0, '20-29': 75.0, '30-39': 87.5, '40-49': 79.5, '50-59': 82.91, '60-69': 81.0, '70-79': 80.0, '80-89': 70.35, '90-99': 80.4, '100-109': 74.37, '110-119': 69.85, '120-129': 82.5, '130-139': 77.0, '140-149': 70.35, 'old': 78.16, 'new': 76.63}
+2023-09-09 15:55:58,267 [trainer.py] => CNN top1 curve: [87.0, 86.66, 83.65, 80.21, 77.86]
+2023-09-09 15:55:58,267 [trainer.py] => CNN top5 curve: [98.33, 97.91, 96.33, 95.49, 94.09]
+
+2023-09-09 15:55:58,268 [trainer.py] => Average Accuracy (CNN): 83.076
+2023-09-09 15:55:58,269 [trainer.py] => All params: 173017345
+2023-09-09 15:55:58,271 [trainer.py] => Trainable params: 87218689
+2023-09-09 15:55:58,273 [adam_adapter.py] => Learning on 150-180
+2023-09-09 15:59:59,524 [trainer.py] => No NME accuracy.
+2023-09-09 15:59:59,524 [trainer.py] => CNN: {'total': 74.86, '00-09': 73.5, '10-19': 78.0, '20-29': 74.0, '30-39': 84.5, '40-49': 76.5, '50-59': 81.41, '60-69': 81.0, '70-79': 77.0, '80-89': 68.84, '90-99': 79.9, '100-109': 72.36, '110-119': 68.84, '120-129': 82.5, '130-139': 77.0, '140-149': 69.35, '150-159': 74.37, '160-169': 70.35, '170-179': 58.0, 'old': 76.32, 'new': 67.56}
+2023-09-09 15:59:59,524 [trainer.py] => CNN top1 curve: [87.0, 86.66, 83.65, 80.21, 77.86, 74.86]
+2023-09-09 15:59:59,524 [trainer.py] => CNN top5 curve: [98.33, 97.91, 96.33, 95.49, 94.09, 92.09]
+
+2023-09-09 15:59:59,524 [trainer.py] => Average Accuracy (CNN): 81.70666666666666
+2023-09-09 15:59:59,526 [trainer.py] => All params: 173063425
+2023-09-09 15:59:59,527 [trainer.py] => Trainable params: 87264769
+2023-09-09 15:59:59,530 [adam_adapter.py] => Learning on 180-210
+2023-09-09 16:04:02,760 [trainer.py] => No NME accuracy.
+2023-09-09 16:04:02,760 [trainer.py] => CNN: {'total': 73.88, '00-09': 73.0, '10-19': 77.5, '20-29': 73.5, '30-39': 84.5, '40-49': 75.5, '50-59': 80.9, '60-69': 78.5, '70-79': 76.5, '80-89': 68.84, '90-99': 76.88, '100-109': 71.86, '110-119': 67.84, '120-129': 82.5, '130-139': 76.0, '140-149': 68.84, '150-159': 72.86, '160-169': 69.85, '170-179': 58.0, '180-189': 71.72, '190-199': 82.0, '200-209': 64.32, 'old': 74.08, 'new': 72.7}
+2023-09-09 16:04:02,760 [trainer.py] => CNN top1 curve: [87.0, 86.66, 83.65, 80.21, 77.86, 74.86, 73.88]
+2023-09-09 16:04:02,760 [trainer.py] => CNN top5 curve: [98.33, 97.91, 96.33, 95.49, 94.09, 92.09, 91.48]
+
+2023-09-09 16:04:02,760 [trainer.py] => Average Accuracy (CNN): 80.58857142857143
+2023-09-09 16:04:02,762 [trainer.py] => All params: 173109505
+2023-09-09 16:04:02,763 [trainer.py] => Trainable params: 87310849
+2023-09-09 16:04:02,765 [adam_adapter.py] => Learning on 210-240
+2023-09-09 16:10:30,089 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 16:10:30,089 [trainer.py] => prefix:  
+2023-09-09 16:10:30,089 [trainer.py] => dataset: omnibenchmark
+2023-09-09 16:10:30,089 [trainer.py] => memory_size: 0
+2023-09-09 16:10:30,089 [trainer.py] => memory_per_class: 0
+2023-09-09 16:10:30,089 [trainer.py] => fixed_memory: False
+2023-09-09 16:10:30,089 [trainer.py] => shuffle: True
+2023-09-09 16:10:30,089 [trainer.py] => init_cls: 30
+2023-09-09 16:10:30,090 [trainer.py] => increment: 30
+2023-09-09 16:10:30,090 [trainer.py] => model_name: adam_adapter
+2023-09-09 16:10:30,090 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 16:10:30,090 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 16:10:30,090 [trainer.py] => seed: 1993
+2023-09-09 16:10:30,090 [trainer.py] => tuned_epoch: 20
+2023-09-09 16:10:30,090 [trainer.py] => init_lr: 0.02
+2023-09-09 16:10:30,090 [trainer.py] => batch_size: 96
+2023-09-09 16:10:30,090 [trainer.py] => use_A: True
+2023-09-09 16:10:30,090 [trainer.py] => weight_decay: 0.0005
+2023-09-09 16:10:30,090 [trainer.py] => min_lr: 0
+2023-09-09 16:10:30,090 [trainer.py] => ffn_num: 64
+2023-09-09 16:10:30,090 [trainer.py] => optimizer: sgd
+2023-09-09 16:10:30,090 [trainer.py] => vpt_type: shallow
+2023-09-09 16:10:30,090 [trainer.py] => prompt_token_num: 5
+2023-09-09 16:10:30,286 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 16:10:32,217 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 16:10:32,697 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 16:10:32,769 [trainer.py] => All params: 86988288
+2023-09-09 16:10:32,770 [trainer.py] => Trainable params: 1189632
+2023-09-09 16:10:32,927 [adam_adapter.py] => Learning on 0-30
+2023-09-09 16:11:38,792 [adam_adapter.py] => Task 0, Epoch 1/20 => Loss 3.022, Train_accy 54.71, Test_accy 80.33
+2023-09-09 16:12:45,101 [adam_adapter.py] => Task 0, Epoch 2/20 => Loss 1.099, Train_accy 79.69, Test_accy 86.67
+2023-09-09 16:13:52,063 [adam_adapter.py] => Task 0, Epoch 3/20 => Loss 0.615, Train_accy 82.21, Test_accy 88.33
+2023-09-09 16:14:59,057 [adam_adapter.py] => Task 0, Epoch 4/20 => Loss 0.537, Train_accy 83.66, Test_accy 87.33
+2023-09-09 16:16:05,493 [adam_adapter.py] => Task 0, Epoch 5/20 => Loss 0.506, Train_accy 84.25, Test_accy 91.00
+2023-09-09 16:17:12,067 [adam_adapter.py] => Task 0, Epoch 6/20 => Loss 0.480, Train_accy 85.70, Test_accy 90.00
+2023-09-09 16:18:18,337 [adam_adapter.py] => Task 0, Epoch 7/20 => Loss 0.471, Train_accy 85.47, Test_accy 90.50
+2023-09-09 16:19:25,279 [adam_adapter.py] => Task 0, Epoch 8/20 => Loss 0.439, Train_accy 86.55, Test_accy 90.33
+2023-09-09 16:20:32,201 [adam_adapter.py] => Task 0, Epoch 9/20 => Loss 0.440, Train_accy 86.67, Test_accy 91.33
+2023-09-09 16:21:39,027 [adam_adapter.py] => Task 0, Epoch 10/20 => Loss 0.433, Train_accy 86.93, Test_accy 91.67
+2023-09-09 16:22:45,603 [adam_adapter.py] => Task 0, Epoch 11/20 => Loss 0.418, Train_accy 87.54, Test_accy 90.67
+2023-09-09 16:23:51,496 [adam_adapter.py] => Task 0, Epoch 12/20 => Loss 0.409, Train_accy 88.14, Test_accy 91.67
+2023-09-09 16:24:58,127 [adam_adapter.py] => Task 0, Epoch 13/20 => Loss 0.395, Train_accy 87.90, Test_accy 91.67
+2023-09-09 16:26:04,879 [adam_adapter.py] => Task 0, Epoch 14/20 => Loss 0.397, Train_accy 87.81, Test_accy 90.33
+2023-09-09 16:27:11,665 [adam_adapter.py] => Task 0, Epoch 15/20 => Loss 0.401, Train_accy 88.10, Test_accy 91.17
+2023-09-09 16:28:18,558 [adam_adapter.py] => Task 0, Epoch 16/20 => Loss 0.398, Train_accy 87.93, Test_accy 91.50
+2023-09-09 16:29:25,242 [adam_adapter.py] => Task 0, Epoch 17/20 => Loss 0.386, Train_accy 88.57, Test_accy 91.50
+2023-09-09 16:30:32,222 [adam_adapter.py] => Task 0, Epoch 18/20 => Loss 0.388, Train_accy 88.14, Test_accy 91.83
+2023-09-09 16:31:38,666 [adam_adapter.py] => Task 0, Epoch 19/20 => Loss 0.384, Train_accy 88.52, Test_accy 92.00
+2023-09-09 16:32:44,988 [adam_adapter.py] => Task 0, Epoch 20/20 => Loss 0.387, Train_accy 88.50, Test_accy 92.00
+2023-09-09 16:32:46,072 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 16:32:46,561 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 16:32:47,240 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 16:32:47,481 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 16:34:07,610 [trainer.py] => No NME accuracy.
+2023-09-09 16:34:07,610 [trainer.py] => CNN: {'total': 90.17, '00-09': 90.5, '10-19': 91.0, '20-29': 89.0, 'old': 0, 'new': 90.17}
+2023-09-09 16:34:07,610 [trainer.py] => CNN top1 curve: [90.17]
+2023-09-09 16:34:07,610 [trainer.py] => CNN top5 curve: [99.33]
+
+2023-09-09 16:34:07,610 [trainer.py] => Average Accuracy (CNN): 90.17
+2023-09-09 16:34:07,612 [trainer.py] => All params: 172833025
+2023-09-09 16:34:07,614 [trainer.py] => Trainable params: 87034369
+2023-09-09 16:34:07,615 [adam_adapter.py] => Learning on 30-60
+2023-09-09 16:35:34,231 [trainer.py] => No NME accuracy.
+2023-09-09 16:35:34,231 [trainer.py] => CNN: {'total': 88.74, '00-09': 83.5, '10-19': 90.5, '20-29': 85.0, '30-39': 91.0, '40-49': 87.5, '50-59': 94.97, 'old': 86.33, 'new': 91.15}
+2023-09-09 16:35:34,231 [trainer.py] => CNN top1 curve: [90.17, 88.74]
+2023-09-09 16:35:34,231 [trainer.py] => CNN top5 curve: [99.33, 98.83]
+
+2023-09-09 16:35:34,231 [trainer.py] => Average Accuracy (CNN): 89.455
+2023-09-09 16:35:34,233 [trainer.py] => All params: 172879105
+2023-09-09 16:35:34,234 [trainer.py] => Trainable params: 87080449
+2023-09-09 16:35:34,236 [adam_adapter.py] => Learning on 60-90
+2023-09-09 16:37:04,011 [trainer.py] => No NME accuracy.
+2023-09-09 16:37:04,011 [trainer.py] => CNN: {'total': 85.76, '00-09': 80.5, '10-19': 84.0, '20-29': 82.5, '30-39': 88.5, '40-49': 85.5, '50-59': 93.47, '60-69': 91.0, '70-79': 88.5, '80-89': 77.89, 'old': 85.74, 'new': 85.81}
+2023-09-09 16:37:04,011 [trainer.py] => CNN top1 curve: [90.17, 88.74, 85.76]
+2023-09-09 16:37:04,011 [trainer.py] => CNN top5 curve: [99.33, 98.83, 97.72]
+
+2023-09-09 16:37:04,012 [trainer.py] => Average Accuracy (CNN): 88.22333333333334
+2023-09-09 16:37:04,013 [trainer.py] => All params: 172925185
+2023-09-09 16:37:04,014 [trainer.py] => Trainable params: 87126529
+2023-09-09 16:37:04,016 [adam_adapter.py] => Learning on 90-120
+2023-09-09 16:38:40,615 [trainer.py] => No NME accuracy.
+2023-09-09 16:38:40,615 [trainer.py] => CNN: {'total': 82.25, '00-09': 78.0, '10-19': 81.0, '20-29': 82.0, '30-39': 87.5, '40-49': 83.0, '50-59': 85.43, '60-69': 85.5, '70-79': 85.5, '80-89': 75.38, '90-99': 81.91, '100-109': 80.9, '110-119': 80.9, 'old': 82.59, 'new': 81.24}
+2023-09-09 16:38:40,615 [trainer.py] => CNN top1 curve: [90.17, 88.74, 85.76, 82.25]
+2023-09-09 16:38:40,615 [trainer.py] => CNN top5 curve: [99.33, 98.83, 97.72, 96.41]
+
+2023-09-09 16:38:40,615 [trainer.py] => Average Accuracy (CNN): 86.73
+2023-09-09 16:38:40,616 [trainer.py] => All params: 172971265
+2023-09-09 16:38:40,617 [trainer.py] => Trainable params: 87172609
+2023-09-09 16:38:40,618 [adam_adapter.py] => Learning on 120-150
+2023-09-09 16:40:23,017 [trainer.py] => No NME accuracy.
+2023-09-09 16:40:23,017 [trainer.py] => CNN: {'total': 80.09, '00-09': 75.5, '10-19': 80.0, '20-29': 81.0, '30-39': 87.5, '40-49': 81.0, '50-59': 76.88, '60-69': 81.5, '70-79': 84.5, '80-89': 74.87, '90-99': 80.9, '100-109': 76.88, '110-119': 75.88, '120-129': 84.0, '130-139': 80.0, '140-149': 80.9, 'old': 79.71, 'new': 81.64}
+2023-09-09 16:40:23,017 [trainer.py] => CNN top1 curve: [90.17, 88.74, 85.76, 82.25, 80.09]
+2023-09-09 16:40:23,017 [trainer.py] => CNN top5 curve: [99.33, 98.83, 97.72, 96.41, 94.99]
+
+2023-09-09 16:40:23,017 [trainer.py] => Average Accuracy (CNN): 85.402
+2023-09-09 16:40:23,019 [trainer.py] => All params: 173017345
+2023-09-09 16:40:23,020 [trainer.py] => Trainable params: 87218689
+2023-09-09 16:40:23,023 [adam_adapter.py] => Learning on 150-180
+2023-09-09 16:42:06,397 [trainer.py] => No NME accuracy.
+2023-09-09 16:42:06,397 [trainer.py] => CNN: {'total': 77.17, '00-09': 73.5, '10-19': 76.5, '20-29': 78.0, '30-39': 83.0, '40-49': 77.5, '50-59': 74.87, '60-69': 79.5, '70-79': 82.0, '80-89': 72.86, '90-99': 80.4, '100-109': 73.87, '110-119': 73.37, '120-129': 84.0, '130-139': 79.5, '140-149': 78.39, '150-159': 79.9, '160-169': 74.37, '170-179': 67.5, 'old': 77.82, 'new': 73.91}
+2023-09-09 16:42:06,397 [trainer.py] => CNN top1 curve: [90.17, 88.74, 85.76, 82.25, 80.09, 77.17]
+2023-09-09 16:42:06,397 [trainer.py] => CNN top5 curve: [99.33, 98.83, 97.72, 96.41, 94.99, 93.82]
+
+2023-09-09 16:42:06,397 [trainer.py] => Average Accuracy (CNN): 84.03
+2023-09-09 16:42:06,399 [trainer.py] => All params: 173063425
+2023-09-09 16:42:06,400 [trainer.py] => Trainable params: 87264769
+2023-09-09 16:42:06,404 [adam_adapter.py] => Learning on 180-210
+2023-09-09 16:43:52,644 [trainer.py] => No NME accuracy.
+2023-09-09 16:43:52,644 [trainer.py] => CNN: {'total': 76.3, '00-09': 72.5, '10-19': 76.5, '20-29': 77.0, '30-39': 83.0, '40-49': 76.0, '50-59': 74.37, '60-69': 76.5, '70-79': 81.5, '80-89': 72.86, '90-99': 77.89, '100-109': 73.37, '110-119': 69.85, '120-129': 84.0, '130-139': 78.5, '140-149': 78.39, '150-159': 76.88, '160-169': 73.37, '170-179': 67.5, '180-189': 74.75, '190-199': 84.5, '200-209': 72.86, 'old': 76.11, 'new': 77.39}
+2023-09-09 16:43:52,644 [trainer.py] => CNN top1 curve: [90.17, 88.74, 85.76, 82.25, 80.09, 77.17, 76.3]
+2023-09-09 16:43:52,644 [trainer.py] => CNN top5 curve: [99.33, 98.83, 97.72, 96.41, 94.99, 93.82, 93.55]
+
+2023-09-09 16:43:52,644 [trainer.py] => Average Accuracy (CNN): 82.92571428571429
+2023-09-09 16:43:52,646 [trainer.py] => All params: 173109505
+2023-09-09 16:43:52,647 [trainer.py] => Trainable params: 87310849
+2023-09-09 16:43:52,649 [adam_adapter.py] => Learning on 210-240
+2023-09-09 16:45:48,664 [trainer.py] => No NME accuracy.
+2023-09-09 16:45:48,665 [trainer.py] => CNN: {'total': 74.71, '00-09': 71.5, '10-19': 74.5, '20-29': 76.0, '30-39': 83.0, '40-49': 75.0, '50-59': 74.37, '60-69': 76.5, '70-79': 81.5, '80-89': 72.86, '90-99': 77.89, '100-109': 65.83, '110-119': 69.35, '120-129': 79.5, '130-139': 78.5, '140-149': 77.39, '150-159': 76.38, '160-169': 72.86, '170-179': 64.5, '180-189': 74.75, '190-199': 84.0, '200-209': 68.84, '210-219': 50.0, '220-229': 86.43, '230-239': 81.5, 'old': 75.01, 'new': 72.62}
+2023-09-09 16:45:48,665 [trainer.py] => CNN top1 curve: [90.17, 88.74, 85.76, 82.25, 80.09, 77.17, 76.3, 74.71]
+2023-09-09 16:45:48,665 [trainer.py] => CNN top5 curve: [99.33, 98.83, 97.72, 96.41, 94.99, 93.82, 93.55, 92.23]
+
+2023-09-09 16:45:48,665 [trainer.py] => Average Accuracy (CNN): 81.89875
+2023-09-09 16:45:48,666 [trainer.py] => All params: 173155585
+2023-09-09 16:45:48,667 [trainer.py] => Trainable params: 87356929
+2023-09-09 16:45:48,669 [adam_adapter.py] => Learning on 240-270
+2023-09-09 16:47:48,105 [trainer.py] => No NME accuracy.
+2023-09-09 16:47:48,105 [trainer.py] => CNN: {'total': 73.79, '00-09': 71.5, '10-19': 74.0, '20-29': 76.0, '30-39': 81.5, '40-49': 75.0, '50-59': 73.87, '60-69': 74.5, '70-79': 81.0, '80-89': 71.86, '90-99': 76.38, '100-109': 64.32, '110-119': 66.33, '120-129': 74.5, '130-139': 77.5, '140-149': 73.37, '150-159': 73.87, '160-169': 72.36, '170-179': 64.5, '180-189': 74.75, '190-199': 81.5, '200-209': 65.83, '210-219': 50.0, '220-229': 86.43, '230-239': 81.5, '240-249': 71.0, '250-259': 76.88, '260-269': 82.0, 'old': 73.43, 'new': 76.63}
+2023-09-09 16:47:48,105 [trainer.py] => CNN top1 curve: [90.17, 88.74, 85.76, 82.25, 80.09, 77.17, 76.3, 74.71, 73.79]
+2023-09-09 16:47:48,105 [trainer.py] => CNN top5 curve: [99.33, 98.83, 97.72, 96.41, 94.99, 93.82, 93.55, 92.23, 92.22]
+
+2023-09-09 16:47:48,105 [trainer.py] => Average Accuracy (CNN): 80.99777777777778
+2023-09-09 16:47:48,107 [trainer.py] => All params: 173201665
+2023-09-09 16:47:48,109 [trainer.py] => Trainable params: 87403009
+2023-09-09 16:47:48,113 [adam_adapter.py] => Learning on 270-300
+2023-09-09 16:49:45,846 [trainer.py] => No NME accuracy.
+2023-09-09 16:49:45,846 [trainer.py] => CNN: {'total': 73.92, '00-09': 71.5, '10-19': 74.0, '20-29': 75.5, '30-39': 81.5, '40-49': 72.0, '50-59': 73.87, '60-69': 74.5, '70-79': 80.5, '80-89': 71.36, '90-99': 72.86, '100-109': 63.82, '110-119': 66.33, '120-129': 74.5, '130-139': 77.0, '140-149': 73.37, '150-159': 73.87, '160-169': 70.85, '170-179': 63.5, '180-189': 73.74, '190-199': 81.0, '200-209': 65.33, '210-219': 49.0, '220-229': 86.43, '230-239': 81.0, '240-249': 69.0, '250-259': 76.38, '260-269': 81.0, '270-279': 81.41, '280-289': 81.0, '290-299': 81.41, 'old': 73.1, 'new': 81.27}
+2023-09-09 16:49:45,846 [trainer.py] => CNN top1 curve: [90.17, 88.74, 85.76, 82.25, 80.09, 77.17, 76.3, 74.71, 73.79, 73.92]
+2023-09-09 16:49:45,846 [trainer.py] => CNN top5 curve: [99.33, 98.83, 97.72, 96.41, 94.99, 93.82, 93.55, 92.23, 92.22, 92.05]
+
+2023-09-09 16:49:45,846 [trainer.py] => Average Accuracy (CNN): 80.28999999999999
+2023-09-09 17:03:29,194 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 17:03:29,194 [trainer.py] => prefix:  
+2023-09-09 17:03:29,194 [trainer.py] => dataset: omnibenchmark
+2023-09-09 17:03:29,194 [trainer.py] => memory_size: 0
+2023-09-09 17:03:29,194 [trainer.py] => memory_per_class: 0
+2023-09-09 17:03:29,194 [trainer.py] => fixed_memory: False
+2023-09-09 17:03:29,194 [trainer.py] => shuffle: True
+2023-09-09 17:03:29,195 [trainer.py] => init_cls: 30
+2023-09-09 17:03:29,195 [trainer.py] => increment: 30
+2023-09-09 17:03:29,195 [trainer.py] => model_name: adam_adapter
+2023-09-09 17:03:29,195 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 17:03:29,195 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 17:03:29,195 [trainer.py] => seed: 1993
+2023-09-09 17:03:29,195 [trainer.py] => tuned_epoch: 20
+2023-09-09 17:03:29,195 [trainer.py] => init_lr: 0.02
+2023-09-09 17:03:29,195 [trainer.py] => batch_size: 96
+2023-09-09 17:03:29,195 [trainer.py] => use_A: True
+2023-09-09 17:03:29,195 [trainer.py] => weight_decay: 0.0005
+2023-09-09 17:03:29,196 [trainer.py] => min_lr: 0
+2023-09-09 17:03:29,196 [trainer.py] => ffn_num: 64
+2023-09-09 17:03:29,196 [trainer.py] => optimizer: sgd
+2023-09-09 17:03:29,196 [trainer.py] => vpt_type: shallow
+2023-09-09 17:03:29,196 [trainer.py] => prompt_token_num: 5
+2023-09-09 17:03:29,892 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 17:03:32,351 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:03:32,837 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:03:32,950 [trainer.py] => All params: 86988288
+2023-09-09 17:03:32,963 [trainer.py] => Trainable params: 1189632
+2023-09-09 17:03:33,107 [adam_adapter.py] => Learning on 0-30
+2023-09-09 17:04:08,333 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 17:04:08,334 [trainer.py] => prefix:  
+2023-09-09 17:04:08,334 [trainer.py] => dataset: omnibenchmark
+2023-09-09 17:04:08,334 [trainer.py] => memory_size: 0
+2023-09-09 17:04:08,334 [trainer.py] => memory_per_class: 0
+2023-09-09 17:04:08,334 [trainer.py] => fixed_memory: False
+2023-09-09 17:04:08,334 [trainer.py] => shuffle: True
+2023-09-09 17:04:08,334 [trainer.py] => init_cls: 30
+2023-09-09 17:04:08,334 [trainer.py] => increment: 30
+2023-09-09 17:04:08,334 [trainer.py] => model_name: adam_adapter
+2023-09-09 17:04:08,334 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 17:04:08,335 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 17:04:08,335 [trainer.py] => seed: 1993
+2023-09-09 17:04:08,335 [trainer.py] => tuned_epoch: 1
+2023-09-09 17:04:08,335 [trainer.py] => init_lr: 0.02
+2023-09-09 17:04:08,335 [trainer.py] => batch_size: 96
+2023-09-09 17:04:08,335 [trainer.py] => use_A: True
+2023-09-09 17:04:08,335 [trainer.py] => weight_decay: 0.0005
+2023-09-09 17:04:08,335 [trainer.py] => min_lr: 0
+2023-09-09 17:04:08,335 [trainer.py] => ffn_num: 64
+2023-09-09 17:04:08,335 [trainer.py] => optimizer: sgd
+2023-09-09 17:04:08,335 [trainer.py] => vpt_type: shallow
+2023-09-09 17:04:08,336 [trainer.py] => prompt_token_num: 5
+2023-09-09 17:04:09,030 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 17:04:11,477 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:04:11,960 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:04:12,071 [trainer.py] => All params: 86988288
+2023-09-09 17:04:12,085 [trainer.py] => Trainable params: 1189632
+2023-09-09 17:04:12,236 [adam_adapter.py] => Learning on 0-30
+2023-09-09 17:05:24,454 [adam_adapter.py] => Task 0, Epoch 1/1 => Loss 3.022, Train_accy 54.71, Test_accy 80.33
+2023-09-09 17:05:25,596 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:05:26,296 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:05:27,177 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:05:27,425 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:09:32,150 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 17:09:32,150 [trainer.py] => prefix:  
+2023-09-09 17:09:32,150 [trainer.py] => dataset: omnibenchmark
+2023-09-09 17:09:32,150 [trainer.py] => memory_size: 0
+2023-09-09 17:09:32,150 [trainer.py] => memory_per_class: 0
+2023-09-09 17:09:32,150 [trainer.py] => fixed_memory: False
+2023-09-09 17:09:32,150 [trainer.py] => shuffle: True
+2023-09-09 17:09:32,150 [trainer.py] => init_cls: 30
+2023-09-09 17:09:32,150 [trainer.py] => increment: 30
+2023-09-09 17:09:32,150 [trainer.py] => model_name: adam_adapter
+2023-09-09 17:09:32,151 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 17:09:32,151 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 17:09:32,151 [trainer.py] => seed: 1993
+2023-09-09 17:09:32,151 [trainer.py] => tuned_epoch: 1
+2023-09-09 17:09:32,151 [trainer.py] => init_lr: 0.02
+2023-09-09 17:09:32,151 [trainer.py] => batch_size: 96
+2023-09-09 17:09:32,151 [trainer.py] => use_A: True
+2023-09-09 17:09:32,151 [trainer.py] => weight_decay: 0.0005
+2023-09-09 17:09:32,151 [trainer.py] => min_lr: 0
+2023-09-09 17:09:32,151 [trainer.py] => ffn_num: 64
+2023-09-09 17:09:32,151 [trainer.py] => optimizer: sgd
+2023-09-09 17:09:32,152 [trainer.py] => vpt_type: shallow
+2023-09-09 17:09:32,152 [trainer.py] => prompt_token_num: 5
+2023-09-09 17:09:32,844 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 17:09:35,399 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:09:35,887 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:09:36,000 [trainer.py] => All params: 86988288
+2023-09-09 17:09:36,020 [trainer.py] => Trainable params: 1189632
+2023-09-09 17:09:36,159 [adam_adapter.py] => Learning on 0-30
+2023-09-09 17:11:49,151 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 17:11:49,151 [trainer.py] => prefix:  
+2023-09-09 17:11:49,152 [trainer.py] => dataset: omnibenchmark
+2023-09-09 17:11:49,152 [trainer.py] => memory_size: 0
+2023-09-09 17:11:49,152 [trainer.py] => memory_per_class: 0
+2023-09-09 17:11:49,152 [trainer.py] => fixed_memory: False
+2023-09-09 17:11:49,152 [trainer.py] => shuffle: True
+2023-09-09 17:11:49,152 [trainer.py] => init_cls: 30
+2023-09-09 17:11:49,152 [trainer.py] => increment: 30
+2023-09-09 17:11:49,152 [trainer.py] => model_name: adam_adapter
+2023-09-09 17:11:49,152 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 17:11:49,152 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 17:11:49,152 [trainer.py] => seed: 1993
+2023-09-09 17:11:49,153 [trainer.py] => tuned_epoch: 1
+2023-09-09 17:11:49,153 [trainer.py] => init_lr: 0.02
+2023-09-09 17:11:49,153 [trainer.py] => batch_size: 96
+2023-09-09 17:11:49,153 [trainer.py] => use_A: True
+2023-09-09 17:11:49,153 [trainer.py] => weight_decay: 0.0005
+2023-09-09 17:11:49,153 [trainer.py] => min_lr: 0
+2023-09-09 17:11:49,153 [trainer.py] => ffn_num: 64
+2023-09-09 17:11:49,153 [trainer.py] => optimizer: sgd
+2023-09-09 17:11:49,153 [trainer.py] => vpt_type: shallow
+2023-09-09 17:11:49,153 [trainer.py] => prompt_token_num: 5
+2023-09-09 17:11:49,856 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 17:11:52,302 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:11:52,790 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:11:52,902 [trainer.py] => All params: 86988288
+2023-09-09 17:11:52,916 [trainer.py] => Trainable params: 1189632
+2023-09-09 17:11:53,060 [adam_adapter.py] => Learning on 0-30
+2023-09-09 17:13:05,508 [adam_adapter.py] => Task 0, Epoch 1/1 => Loss 3.022, Train_accy 54.71, Test_accy 80.33
+2023-09-09 17:13:06,622 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:13:06,872 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:13:07,776 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:13:08,023 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:14:07,529 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 17:14:07,529 [trainer.py] => prefix:  
+2023-09-09 17:14:07,529 [trainer.py] => dataset: omnibenchmark
+2023-09-09 17:14:07,529 [trainer.py] => memory_size: 0
+2023-09-09 17:14:07,529 [trainer.py] => memory_per_class: 0
+2023-09-09 17:14:07,529 [trainer.py] => fixed_memory: False
+2023-09-09 17:14:07,529 [trainer.py] => shuffle: True
+2023-09-09 17:14:07,529 [trainer.py] => init_cls: 30
+2023-09-09 17:14:07,530 [trainer.py] => increment: 30
+2023-09-09 17:14:07,530 [trainer.py] => model_name: adam_adapter
+2023-09-09 17:14:07,530 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 17:14:07,530 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 17:14:07,530 [trainer.py] => seed: 1993
+2023-09-09 17:14:07,530 [trainer.py] => tuned_epoch: 1
+2023-09-09 17:14:07,530 [trainer.py] => init_lr: 0.02
+2023-09-09 17:14:07,530 [trainer.py] => batch_size: 96
+2023-09-09 17:14:07,530 [trainer.py] => use_A: True
+2023-09-09 17:14:07,530 [trainer.py] => weight_decay: 0.0005
+2023-09-09 17:14:07,530 [trainer.py] => min_lr: 0
+2023-09-09 17:14:07,530 [trainer.py] => ffn_num: 64
+2023-09-09 17:14:07,530 [trainer.py] => optimizer: sgd
+2023-09-09 17:14:07,530 [trainer.py] => vpt_type: shallow
+2023-09-09 17:14:07,530 [trainer.py] => prompt_token_num: 5
+2023-09-09 17:14:07,721 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 17:14:09,565 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:14:10,051 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:14:10,124 [trainer.py] => All params: 86988288
+2023-09-09 17:14:10,125 [trainer.py] => Trainable params: 1189632
+2023-09-09 17:14:10,270 [adam_adapter.py] => Learning on 0-30
+2023-09-09 17:15:16,550 [adam_adapter.py] => Task 0, Epoch 1/1 => Loss 3.022, Train_accy 54.71, Test_accy 80.33
+2023-09-09 17:15:17,630 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:15:17,870 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:15:18,563 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:15:18,803 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:16:38,733 [trainer.py] => No NME accuracy.
+2023-09-09 17:16:38,733 [trainer.py] => CNN: {'total': 87.17, '00-09': 90.5, '10-19': 88.0, '20-29': 83.0, 'old': 0, 'new': 87.17}
+2023-09-09 17:16:38,733 [trainer.py] => CNN top1 curve: [87.17]
+2023-09-09 17:16:38,733 [trainer.py] => CNN top5 curve: [98.83]
+
+2023-09-09 17:16:38,733 [trainer.py] => Average Accuracy (CNN): 87.17
+2023-09-09 17:16:38,735 [trainer.py] => All params: 172833025
+2023-09-09 17:16:38,737 [trainer.py] => Trainable params: 87034369
+2023-09-09 17:16:38,738 [adam_adapter.py] => Learning on 30-60
+2023-09-09 17:16:58,697 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 17:16:58,697 [trainer.py] => prefix:  
+2023-09-09 17:16:58,697 [trainer.py] => dataset: omnibenchmark
+2023-09-09 17:16:58,697 [trainer.py] => memory_size: 0
+2023-09-09 17:16:58,697 [trainer.py] => memory_per_class: 0
+2023-09-09 17:16:58,697 [trainer.py] => fixed_memory: False
+2023-09-09 17:16:58,697 [trainer.py] => shuffle: True
+2023-09-09 17:16:58,697 [trainer.py] => init_cls: 30
+2023-09-09 17:16:58,697 [trainer.py] => increment: 30
+2023-09-09 17:16:58,697 [trainer.py] => model_name: adam_adapter
+2023-09-09 17:16:58,697 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 17:16:58,697 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 17:16:58,697 [trainer.py] => seed: 1993
+2023-09-09 17:16:58,698 [trainer.py] => tuned_epoch: 5
+2023-09-09 17:16:58,698 [trainer.py] => init_lr: 0.02
+2023-09-09 17:16:58,698 [trainer.py] => batch_size: 96
+2023-09-09 17:16:58,698 [trainer.py] => use_A: True
+2023-09-09 17:16:58,698 [trainer.py] => weight_decay: 0.0005
+2023-09-09 17:16:58,698 [trainer.py] => min_lr: 0
+2023-09-09 17:16:58,698 [trainer.py] => ffn_num: 64
+2023-09-09 17:16:58,698 [trainer.py] => optimizer: sgd
+2023-09-09 17:16:58,698 [trainer.py] => vpt_type: shallow
+2023-09-09 17:16:58,698 [trainer.py] => prompt_token_num: 5
+2023-09-09 17:16:58,889 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 17:17:00,779 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:17:01,276 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:17:01,341 [trainer.py] => All params: 86988288
+2023-09-09 17:17:01,342 [trainer.py] => Trainable params: 1189632
+2023-09-09 17:17:01,489 [adam_adapter.py] => Learning on 0-30
+2023-09-09 17:18:07,839 [adam_adapter.py] => Task 0, Epoch 1/5 => Loss 3.022, Train_accy 54.71, Test_accy 80.33
+2023-09-09 17:19:14,381 [adam_adapter.py] => Task 0, Epoch 2/5 => Loss 1.138, Train_accy 79.43, Test_accy 87.00
+2023-09-09 17:20:21,229 [adam_adapter.py] => Task 0, Epoch 3/5 => Loss 0.642, Train_accy 82.14, Test_accy 87.83
+2023-09-09 17:21:28,253 [adam_adapter.py] => Task 0, Epoch 4/5 => Loss 0.574, Train_accy 83.60, Test_accy 87.17
+2023-09-09 17:22:34,601 [adam_adapter.py] => Task 0, Epoch 5/5 => Loss 0.557, Train_accy 83.97, Test_accy 88.50
+2023-09-09 17:22:35,724 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:22:36,207 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:22:36,939 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:22:37,179 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:23:57,380 [trainer.py] => No NME accuracy.
+2023-09-09 17:23:57,380 [trainer.py] => CNN: {'total': 87.17, '00-09': 90.0, '10-19': 88.5, '20-29': 83.0, 'old': 0, 'new': 87.17}
+2023-09-09 17:23:57,380 [trainer.py] => CNN top1 curve: [87.17]
+2023-09-09 17:23:57,380 [trainer.py] => CNN top5 curve: [99.0]
+
+2023-09-09 17:23:57,380 [trainer.py] => Average Accuracy (CNN): 87.17
+2023-09-09 17:23:57,382 [trainer.py] => All params: 172833025
+2023-09-09 17:23:57,383 [trainer.py] => Trainable params: 87034369
+2023-09-09 17:23:57,384 [adam_adapter.py] => Learning on 30-60
+2023-09-09 17:25:24,152 [trainer.py] => No NME accuracy.
+2023-09-09 17:25:24,153 [trainer.py] => CNN: {'total': 87.49, '00-09': 84.5, '10-19': 88.5, '20-29': 79.5, '30-39': 91.0, '40-49': 87.0, '50-59': 94.47, 'old': 84.17, 'new': 90.82}
+2023-09-09 17:25:24,153 [trainer.py] => CNN top1 curve: [87.17, 87.49]
+2023-09-09 17:25:24,153 [trainer.py] => CNN top5 curve: [99.0, 98.0]
+
+2023-09-09 17:25:24,153 [trainer.py] => Average Accuracy (CNN): 87.33
+2023-09-09 17:25:24,154 [trainer.py] => All params: 172879105
+2023-09-09 17:25:24,156 [trainer.py] => Trainable params: 87080449
+2023-09-09 17:25:24,158 [adam_adapter.py] => Learning on 60-90
+2023-09-09 17:26:54,389 [trainer.py] => No NME accuracy.
+2023-09-09 17:26:54,389 [trainer.py] => CNN: {'total': 84.82, '00-09': 81.5, '10-19': 83.0, '20-29': 75.5, '30-39': 88.0, '40-49': 84.5, '50-59': 92.96, '60-69': 92.0, '70-79': 87.5, '80-89': 78.39, 'old': 84.24, 'new': 85.98}
+2023-09-09 17:26:54,389 [trainer.py] => CNN top1 curve: [87.17, 87.49, 84.82]
+2023-09-09 17:26:54,389 [trainer.py] => CNN top5 curve: [99.0, 98.0, 97.05]
+
+2023-09-09 17:26:54,389 [trainer.py] => Average Accuracy (CNN): 86.49333333333334
+2023-09-09 17:26:54,391 [trainer.py] => All params: 172925185
+2023-09-09 17:26:54,392 [trainer.py] => Trainable params: 87126529
+2023-09-09 17:26:54,393 [adam_adapter.py] => Learning on 90-120
+2023-09-09 17:28:31,466 [trainer.py] => No NME accuracy.
+2023-09-09 17:28:31,467 [trainer.py] => CNN: {'total': 80.67, '00-09': 79.0, '10-19': 78.5, '20-29': 74.5, '30-39': 87.5, '40-49': 82.0, '50-59': 83.92, '60-69': 87.0, '70-79': 84.0, '80-89': 74.87, '90-99': 80.9, '100-109': 78.39, '110-119': 77.39, 'old': 81.26, 'new': 78.89}
+2023-09-09 17:28:31,467 [trainer.py] => CNN top1 curve: [87.17, 87.49, 84.82, 80.67]
+2023-09-09 17:28:31,467 [trainer.py] => CNN top5 curve: [99.0, 98.0, 97.05, 95.99]
+
+2023-09-09 17:28:31,467 [trainer.py] => Average Accuracy (CNN): 85.03750000000001
+2023-09-09 17:28:31,468 [trainer.py] => All params: 172971265
+2023-09-09 17:28:31,470 [trainer.py] => Trainable params: 87172609
+2023-09-09 17:28:31,472 [adam_adapter.py] => Learning on 120-150
+2023-09-09 17:30:14,182 [trainer.py] => No NME accuracy.
+2023-09-09 17:30:14,182 [trainer.py] => CNN: {'total': 78.79, '00-09': 76.5, '10-19': 78.0, '20-29': 73.5, '30-39': 87.0, '40-49': 79.0, '50-59': 77.39, '60-69': 82.5, '70-79': 83.0, '80-89': 73.37, '90-99': 80.4, '100-109': 74.87, '110-119': 71.86, '120-129': 84.0, '130-139': 80.5, '140-149': 79.9, 'old': 78.12, 'new': 81.47}
+2023-09-09 17:30:14,182 [trainer.py] => CNN top1 curve: [87.17, 87.49, 84.82, 80.67, 78.79]
+2023-09-09 17:30:14,182 [trainer.py] => CNN top5 curve: [99.0, 98.0, 97.05, 95.99, 95.06]
+
+2023-09-09 17:30:14,183 [trainer.py] => Average Accuracy (CNN): 83.78800000000001
+2023-09-09 17:30:14,184 [trainer.py] => All params: 173017345
+2023-09-09 17:30:14,186 [trainer.py] => Trainable params: 87218689
+2023-09-09 17:30:14,189 [adam_adapter.py] => Learning on 150-180
+2023-09-09 17:31:58,082 [trainer.py] => No NME accuracy.
+2023-09-09 17:31:58,083 [trainer.py] => CNN: {'total': 76.22, '00-09': 74.5, '10-19': 75.0, '20-29': 71.0, '30-39': 83.5, '40-49': 76.0, '50-59': 75.38, '60-69': 81.5, '70-79': 80.5, '80-89': 70.85, '90-99': 79.9, '100-109': 71.86, '110-119': 70.85, '120-129': 83.5, '130-139': 80.5, '140-149': 76.88, '150-159': 78.89, '160-169': 75.38, '170-179': 66.0, 'old': 76.79, 'new': 73.41}
+2023-09-09 17:31:58,083 [trainer.py] => CNN top1 curve: [87.17, 87.49, 84.82, 80.67, 78.79, 76.22]
+2023-09-09 17:31:58,083 [trainer.py] => CNN top5 curve: [99.0, 98.0, 97.05, 95.99, 95.06, 93.71]
+
+2023-09-09 17:31:58,083 [trainer.py] => Average Accuracy (CNN): 82.52666666666669
+2023-09-09 17:31:58,084 [trainer.py] => All params: 173063425
+2023-09-09 17:31:58,086 [trainer.py] => Trainable params: 87264769
+2023-09-09 17:31:58,089 [adam_adapter.py] => Learning on 180-210
+2023-09-09 17:33:44,815 [trainer.py] => No NME accuracy.
+2023-09-09 17:33:44,815 [trainer.py] => CNN: {'total': 75.41, '00-09': 74.0, '10-19': 74.5, '20-29': 71.0, '30-39': 83.5, '40-49': 75.0, '50-59': 74.87, '60-69': 77.5, '70-79': 80.5, '80-89': 70.85, '90-99': 77.39, '100-109': 71.36, '110-119': 67.34, '120-129': 83.5, '130-139': 79.5, '140-149': 76.88, '150-159': 76.38, '160-169': 73.87, '170-179': 66.0, '180-189': 73.23, '190-199': 83.5, '200-209': 72.86, 'old': 75.22, 'new': 76.55}
+2023-09-09 17:33:44,815 [trainer.py] => CNN top1 curve: [87.17, 87.49, 84.82, 80.67, 78.79, 76.22, 75.41]
+2023-09-09 17:33:44,815 [trainer.py] => CNN top5 curve: [99.0, 98.0, 97.05, 95.99, 95.06, 93.71, 93.34]
+
+2023-09-09 17:33:44,816 [trainer.py] => Average Accuracy (CNN): 81.51
+2023-09-09 17:33:44,817 [trainer.py] => All params: 173109505
+2023-09-09 17:33:44,818 [trainer.py] => Trainable params: 87310849
+2023-09-09 17:33:44,821 [adam_adapter.py] => Learning on 210-240
+2023-09-09 17:35:40,940 [trainer.py] => No NME accuracy.
+2023-09-09 17:35:40,940 [trainer.py] => CNN: {'total': 73.89, '00-09': 73.0, '10-19': 72.5, '20-29': 70.0, '30-39': 83.5, '40-49': 73.5, '50-59': 74.87, '60-69': 76.5, '70-79': 80.5, '80-89': 70.85, '90-99': 77.39, '100-109': 63.82, '110-119': 66.83, '120-129': 80.5, '130-139': 79.5, '140-149': 75.88, '150-159': 75.88, '160-169': 72.86, '170-179': 62.5, '180-189': 73.23, '190-199': 83.5, '200-209': 68.84, '210-219': 50.5, '220-229': 85.93, '230-239': 81.0, 'old': 74.1, 'new': 72.45}
+2023-09-09 17:35:40,940 [trainer.py] => CNN top1 curve: [87.17, 87.49, 84.82, 80.67, 78.79, 76.22, 75.41, 73.89]
+2023-09-09 17:35:40,940 [trainer.py] => CNN top5 curve: [99.0, 98.0, 97.05, 95.99, 95.06, 93.71, 93.34, 91.92]
+
+2023-09-09 17:35:40,940 [trainer.py] => Average Accuracy (CNN): 80.5575
+2023-09-09 17:35:40,941 [trainer.py] => All params: 173155585
+2023-09-09 17:35:40,942 [trainer.py] => Trainable params: 87356929
+2023-09-09 17:35:40,944 [adam_adapter.py] => Learning on 240-270
+2023-09-09 17:37:40,517 [trainer.py] => No NME accuracy.
+2023-09-09 17:37:40,517 [trainer.py] => CNN: {'total': 73.01, '00-09': 73.0, '10-19': 71.5, '20-29': 70.0, '30-39': 82.5, '40-49': 73.5, '50-59': 73.87, '60-69': 74.0, '70-79': 80.0, '80-89': 69.85, '90-99': 75.88, '100-109': 62.81, '110-119': 63.82, '120-129': 75.0, '130-139': 78.5, '140-149': 71.86, '150-159': 73.37, '160-169': 72.86, '170-179': 62.5, '180-189': 73.23, '190-199': 81.0, '200-209': 65.83, '210-219': 50.5, '220-229': 85.43, '230-239': 81.0, '240-249': 71.0, '250-259': 76.88, '260-269': 81.5, 'old': 72.58, 'new': 76.46}
+2023-09-09 17:37:40,517 [trainer.py] => CNN top1 curve: [87.17, 87.49, 84.82, 80.67, 78.79, 76.22, 75.41, 73.89, 73.01]
+2023-09-09 17:37:40,517 [trainer.py] => CNN top5 curve: [99.0, 98.0, 97.05, 95.99, 95.06, 93.71, 93.34, 91.92, 91.91]
+
+2023-09-09 17:37:40,517 [trainer.py] => Average Accuracy (CNN): 79.7188888888889
+2023-09-09 17:37:40,519 [trainer.py] => All params: 173201665
+2023-09-09 17:37:40,521 [trainer.py] => Trainable params: 87403009
+2023-09-09 17:37:40,524 [adam_adapter.py] => Learning on 270-300
+2023-09-09 17:40:02,189 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 17:40:02,189 [trainer.py] => prefix:  
+2023-09-09 17:40:02,189 [trainer.py] => dataset: omnibenchmark
+2023-09-09 17:40:02,189 [trainer.py] => memory_size: 0
+2023-09-09 17:40:02,189 [trainer.py] => memory_per_class: 0
+2023-09-09 17:40:02,189 [trainer.py] => fixed_memory: False
+2023-09-09 17:40:02,189 [trainer.py] => shuffle: True
+2023-09-09 17:40:02,189 [trainer.py] => init_cls: 30
+2023-09-09 17:40:02,189 [trainer.py] => increment: 30
+2023-09-09 17:40:02,189 [trainer.py] => model_name: adam_adapter
+2023-09-09 17:40:02,189 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 17:40:02,189 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 17:40:02,189 [trainer.py] => seed: 1993
+2023-09-09 17:40:02,189 [trainer.py] => tuned_epoch: 20
+2023-09-09 17:40:02,189 [trainer.py] => init_lr: 0.02
+2023-09-09 17:40:02,189 [trainer.py] => batch_size: 96
+2023-09-09 17:40:02,190 [trainer.py] => use_A: True
+2023-09-09 17:40:02,190 [trainer.py] => weight_decay: 0.0005
+2023-09-09 17:40:02,190 [trainer.py] => min_lr: 0
+2023-09-09 17:40:02,190 [trainer.py] => ffn_num: 64
+2023-09-09 17:40:02,190 [trainer.py] => optimizer: sgd
+2023-09-09 17:40:02,190 [trainer.py] => vpt_type: shallow
+2023-09-09 17:40:02,190 [trainer.py] => prompt_token_num: 5
+2023-09-09 17:40:02,380 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 17:40:04,240 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:40:04,724 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:40:04,789 [trainer.py] => All params: 86988288
+2023-09-09 17:40:04,790 [trainer.py] => Trainable params: 1189632
+2023-09-09 17:40:04,921 [adam_adapter.py] => Learning on 0-30
+2023-09-09 17:45:22,357 [trainer.py] => config: ./exps/adam_adapter.json
+2023-09-09 17:45:22,357 [trainer.py] => prefix:  
+2023-09-09 17:45:22,357 [trainer.py] => dataset: omnibenchmark
+2023-09-09 17:45:22,357 [trainer.py] => memory_size: 0
+2023-09-09 17:45:22,357 [trainer.py] => memory_per_class: 0
+2023-09-09 17:45:22,357 [trainer.py] => fixed_memory: False
+2023-09-09 17:45:22,357 [trainer.py] => shuffle: True
+2023-09-09 17:45:22,357 [trainer.py] => init_cls: 30
+2023-09-09 17:45:22,357 [trainer.py] => increment: 30
+2023-09-09 17:45:22,357 [trainer.py] => model_name: adam_adapter
+2023-09-09 17:45:22,357 [trainer.py] => convnet_type: pretrained_vit_b16_224_in21k_adapter
+2023-09-09 17:45:22,357 [trainer.py] => device: [device(type='cuda', index=0), device(type='cuda', index=1)]
+2023-09-09 17:45:22,357 [trainer.py] => seed: 1993
+2023-09-09 17:45:22,357 [trainer.py] => tuned_epoch: 20
+2023-09-09 17:45:22,357 [trainer.py] => init_lr: 0.02
+2023-09-09 17:45:22,357 [trainer.py] => batch_size: 96
+2023-09-09 17:45:22,357 [trainer.py] => use_A: True
+2023-09-09 17:45:22,357 [trainer.py] => weight_decay: 0.0005
+2023-09-09 17:45:22,357 [trainer.py] => min_lr: 0
+2023-09-09 17:45:22,357 [trainer.py] => ffn_num: 64
+2023-09-09 17:45:22,357 [trainer.py] => optimizer: sgd
+2023-09-09 17:45:22,357 [trainer.py] => vpt_type: shallow
+2023-09-09 17:45:22,357 [trainer.py] => prompt_token_num: 5
+2023-09-09 17:45:22,552 [data_manager.py] => [169, 221, 146, 296, 92, 229, 49, 70, 126, 77, 243, 57, 120, 223, 27, 217, 154, 8, 101, 182, 54, 50, 97, 162, 28, 193, 79, 6, 151, 0, 173, 187, 44, 277, 157, 16, 257, 122, 35, 9, 171, 176, 134, 4, 87, 255, 112, 153, 246, 286, 147, 186, 107, 98, 10, 7, 266, 214, 36, 165, 139, 254, 103, 269, 59, 23, 298, 39, 73, 208, 135, 299, 102, 20, 12, 268, 11, 209, 161, 210, 74, 42, 56, 99, 235, 133, 159, 189, 145, 238, 215, 241, 138, 195, 233, 279, 88, 199, 64, 280, 26, 203, 17, 245, 174, 236, 137, 252, 80, 68, 181, 150, 118, 94, 75, 2, 109, 119, 232, 15, 69, 184, 201, 261, 55, 287, 273, 66, 175, 32, 142, 136, 116, 76, 179, 1, 91, 248, 275, 240, 290, 170, 132, 106, 265, 270, 85, 19, 284, 43, 259, 293, 228, 200, 104, 227, 51, 224, 163, 297, 216, 260, 93, 46, 100, 272, 105, 72, 131, 3, 156, 256, 249, 48, 113, 82, 172, 213, 62, 53, 271, 168, 253, 226, 183, 180, 276, 283, 78, 61, 143, 278, 30, 141, 196, 264, 231, 52, 222, 40, 125, 219, 65, 166, 192, 289, 45, 205, 89, 267, 90, 71, 167, 262, 281, 212, 96, 84, 127, 67, 294, 178, 288, 197, 21, 18, 111, 108, 58, 230, 188, 31, 110, 291, 129, 24, 204, 83, 81, 251, 60, 13, 128, 14, 86, 63, 117, 198, 274, 5, 22, 144, 258, 121, 38, 207, 148, 292, 41, 234, 237, 114, 202, 37, 149, 206, 155, 29, 130, 177, 194, 152, 34, 33, 239, 160, 140, 47, 244, 25, 282, 158, 211, 123, 190, 218, 164, 247, 263, 191, 220, 115, 242, 250, 124, 295, 95, 285, 225, 185]
+2023-09-09 17:45:24,406 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:45:24,907 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:45:24,970 [trainer.py] => All params: 86988288
+2023-09-09 17:45:24,971 [trainer.py] => Trainable params: 1189632
+2023-09-09 17:45:25,108 [adam_adapter.py] => Learning on 0-30
+2023-09-09 17:46:04,443 [adam_adapter.py] => Task 0, Epoch 1/20 => Loss 3.022, Train_accy 54.71, Test_accy 80.33
+2023-09-09 17:46:43,517 [adam_adapter.py] => Task 0, Epoch 2/20 => Loss 1.099, Train_accy 79.69, Test_accy 86.67
+2023-09-09 17:47:23,508 [adam_adapter.py] => Task 0, Epoch 3/20 => Loss 0.615, Train_accy 82.21, Test_accy 88.33
+2023-09-09 17:48:03,308 [adam_adapter.py] => Task 0, Epoch 4/20 => Loss 0.537, Train_accy 83.66, Test_accy 87.33
+2023-09-09 17:48:42,734 [adam_adapter.py] => Task 0, Epoch 5/20 => Loss 0.506, Train_accy 84.25, Test_accy 91.00
+2023-09-09 17:49:22,485 [adam_adapter.py] => Task 0, Epoch 6/20 => Loss 0.480, Train_accy 85.70, Test_accy 90.00
+2023-09-09 17:50:02,339 [adam_adapter.py] => Task 0, Epoch 7/20 => Loss 0.471, Train_accy 85.47, Test_accy 90.50
+2023-09-09 17:50:42,335 [adam_adapter.py] => Task 0, Epoch 8/20 => Loss 0.439, Train_accy 86.55, Test_accy 90.33
+2023-09-09 17:51:22,233 [adam_adapter.py] => Task 0, Epoch 9/20 => Loss 0.440, Train_accy 86.67, Test_accy 91.33
+2023-09-09 17:52:02,000 [adam_adapter.py] => Task 0, Epoch 10/20 => Loss 0.433, Train_accy 86.93, Test_accy 91.67
+2023-09-09 17:52:41,713 [adam_adapter.py] => Task 0, Epoch 11/20 => Loss 0.418, Train_accy 87.54, Test_accy 90.67
+2023-09-09 17:53:21,432 [adam_adapter.py] => Task 0, Epoch 12/20 => Loss 0.409, Train_accy 88.14, Test_accy 91.67
+2023-09-09 17:54:00,997 [adam_adapter.py] => Task 0, Epoch 13/20 => Loss 0.395, Train_accy 87.90, Test_accy 91.67
+2023-09-09 17:54:40,609 [adam_adapter.py] => Task 0, Epoch 14/20 => Loss 0.397, Train_accy 87.81, Test_accy 90.33
+2023-09-09 17:55:20,221 [adam_adapter.py] => Task 0, Epoch 15/20 => Loss 0.401, Train_accy 88.10, Test_accy 91.17
+2023-09-09 17:55:59,841 [adam_adapter.py] => Task 0, Epoch 16/20 => Loss 0.398, Train_accy 87.93, Test_accy 91.50
+2023-09-09 17:56:39,514 [adam_adapter.py] => Task 0, Epoch 17/20 => Loss 0.386, Train_accy 88.57, Test_accy 91.50
+2023-09-09 17:57:19,388 [adam_adapter.py] => Task 0, Epoch 18/20 => Loss 0.388, Train_accy 88.14, Test_accy 91.83
+2023-09-09 17:57:58,954 [adam_adapter.py] => Task 0, Epoch 19/20 => Loss 0.384, Train_accy 88.52, Test_accy 92.00
+2023-09-09 17:58:38,520 [adam_adapter.py] => Task 0, Epoch 20/20 => Loss 0.387, Train_accy 88.50, Test_accy 92.00
+2023-09-09 17:58:39,640 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:58:40,124 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:58:40,853 [_builder.py] => Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.augreg_in21k)
+2023-09-09 17:58:41,104 [_hub.py] => [timm/vit_base_patch16_224.augreg_in21k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2023-09-09 17:59:34,016 [trainer.py] => No NME accuracy.
+2023-09-09 17:59:34,016 [trainer.py] => CNN: {'total': 89.83, '00-09': 90.5, '10-19': 90.5, '20-29': 88.5, 'old': 0, 'new': 89.83}
+2023-09-09 17:59:34,016 [trainer.py] => CNN top1 curve: [89.83]
+2023-09-09 17:59:34,016 [trainer.py] => CNN top5 curve: [99.17]
+
+2023-09-09 17:59:34,016 [trainer.py] => Average Accuracy (CNN): 89.83
+2023-09-09 17:59:34,018 [trainer.py] => All params: 172833025
+2023-09-09 17:59:34,019 [trainer.py] => Trainable params: 87034369
+2023-09-09 17:59:34,021 [adam_adapter.py] => Learning on 30-60
+2023-09-09 18:00:18,345 [trainer.py] => No NME accuracy.
+2023-09-09 18:00:18,345 [trainer.py] => CNN: {'total': 88.99, '00-09': 85.0, '10-19': 90.5, '20-29': 84.5, '30-39': 91.5, '40-49': 87.5, '50-59': 94.97, 'old': 86.67, 'new': 91.32}
+2023-09-09 18:00:18,345 [trainer.py] => CNN top1 curve: [89.83, 88.99]
+2023-09-09 18:00:18,345 [trainer.py] => CNN top5 curve: [99.17, 98.67]
+
+2023-09-09 18:00:18,346 [trainer.py] => Average Accuracy (CNN): 89.41
+2023-09-09 18:00:18,347 [trainer.py] => All params: 172879105
+2023-09-09 18:00:18,349 [trainer.py] => Trainable params: 87080449
+2023-09-09 18:00:18,351 [adam_adapter.py] => Learning on 60-90
+2023-09-09 18:01:05,152 [trainer.py] => No NME accuracy.
+2023-09-09 18:01:05,152 [trainer.py] => CNN: {'total': 86.21, '00-09': 82.5, '10-19': 83.5, '20-29': 82.5, '30-39': 89.0, '40-49': 85.5, '50-59': 93.47, '60-69': 92.5, '70-79': 87.5, '80-89': 79.4, 'old': 86.07, 'new': 86.48}
+2023-09-09 18:01:05,152 [trainer.py] => CNN top1 curve: [89.83, 88.99, 86.21]
+2023-09-09 18:01:05,152 [trainer.py] => CNN top5 curve: [99.17, 98.67, 97.72]
+
+2023-09-09 18:01:05,152 [trainer.py] => Average Accuracy (CNN): 88.34333333333332
+2023-09-09 18:01:05,154 [trainer.py] => All params: 172925185
+2023-09-09 18:01:05,155 [trainer.py] => Trainable params: 87126529
+2023-09-09 18:01:05,157 [adam_adapter.py] => Learning on 90-120
+2023-09-09 18:01:56,286 [trainer.py] => No NME accuracy.
+2023-09-09 18:01:56,286 [trainer.py] => CNN: {'total': 82.51, '00-09': 80.0, '10-19': 80.5, '20-29': 82.0, '30-39': 88.5, '40-49': 83.0, '50-59': 85.43, '60-69': 87.5, '70-79': 84.5, '80-89': 76.38, '90-99': 81.91, '100-109': 79.4, '110-119': 80.9, 'old': 83.09, 'new': 80.74}
+2023-09-09 18:01:56,287 [trainer.py] => CNN top1 curve: [89.83, 88.99, 86.21, 82.51]
+2023-09-09 18:01:56,287 [trainer.py] => CNN top5 curve: [99.17, 98.67, 97.72, 96.49]
+
+2023-09-09 18:01:56,287 [trainer.py] => Average Accuracy (CNN): 86.88499999999999
+2023-09-09 18:01:56,288 [trainer.py] => All params: 172971265
+2023-09-09 18:01:56,289 [trainer.py] => Trainable params: 87172609
+2023-09-09 18:01:56,290 [adam_adapter.py] => Learning on 120-150
+2023-09-09 18:02:50,785 [trainer.py] => No NME accuracy.
+2023-09-09 18:02:50,785 [trainer.py] => CNN: {'total': 80.59, '00-09': 78.0, '10-19': 80.0, '20-29': 81.0, '30-39': 88.0, '40-49': 81.0, '50-59': 77.89, '60-69': 83.5, '70-79': 84.0, '80-89': 75.88, '90-99': 80.9, '100-109': 75.38, '110-119': 75.88, '120-129': 84.5, '130-139': 81.0, '140-149': 81.91, 'old': 80.13, 'new': 82.47}
+2023-09-09 18:02:50,785 [trainer.py] => CNN top1 curve: [89.83, 88.99, 86.21, 82.51, 80.59]
+2023-09-09 18:02:50,785 [trainer.py] => CNN top5 curve: [99.17, 98.67, 97.72, 96.49, 95.12]
+
+2023-09-09 18:02:50,785 [trainer.py] => Average Accuracy (CNN): 85.626
+2023-09-09 18:02:50,787 [trainer.py] => All params: 173017345
+2023-09-09 18:02:50,789 [trainer.py] => Trainable params: 87218689
+2023-09-09 18:02:50,791 [adam_adapter.py] => Learning on 150-180
+2023-09-09 18:03:47,191 [trainer.py] => No NME accuracy.
+2023-09-09 18:03:47,191 [trainer.py] => CNN: {'total': 77.53, '00-09': 75.5, '10-19': 76.5, '20-29': 77.5, '30-39': 83.5, '40-49': 77.5, '50-59': 75.88, '60-69': 82.0, '70-79': 81.5, '80-89': 72.86, '90-99': 80.4, '100-109': 73.37, '110-119': 73.37, '120-129': 84.5, '130-139': 80.5, '140-149': 79.9, '150-159': 79.4, '160-169': 74.37, '170-179': 67.0, 'old': 78.32, 'new': 73.58}
+2023-09-09 18:03:47,192 [trainer.py] => CNN top1 curve: [89.83, 88.99, 86.21, 82.51, 80.59, 77.53]
+2023-09-09 18:03:47,192 [trainer.py] => CNN top5 curve: [99.17, 98.67, 97.72, 96.49, 95.12, 93.9]
+
+2023-09-09 18:03:47,192 [trainer.py] => Average Accuracy (CNN): 84.27666666666666
+2023-09-09 18:03:47,193 [trainer.py] => All params: 173063425
+2023-09-09 18:03:47,195 [trainer.py] => Trainable params: 87264769
+2023-09-09 18:03:47,197 [adam_adapter.py] => Learning on 180-210
+2023-09-09 18:04:46,449 [trainer.py] => No NME accuracy.
+2023-09-09 18:04:46,449 [trainer.py] => CNN: {'total': 76.63, '00-09': 74.5, '10-19': 76.5, '20-29': 76.5, '30-39': 83.5, '40-49': 76.0, '50-59': 75.38, '60-69': 79.0, '70-79': 81.0, '80-89': 72.36, '90-99': 77.89, '100-109': 72.86, '110-119': 70.35, '120-129': 84.5, '130-139': 79.5, '140-149': 79.9, '150-159': 76.88, '160-169': 73.37, '170-179': 67.0, '180-189': 74.75, '190-199': 84.0, '200-209': 73.37, 'old': 76.5, 'new': 77.39}
+2023-09-09 18:04:46,449 [trainer.py] => CNN top1 curve: [89.83, 88.99, 86.21, 82.51, 80.59, 77.53, 76.63]
+2023-09-09 18:04:46,449 [trainer.py] => CNN top5 curve: [99.17, 98.67, 97.72, 96.49, 95.12, 93.9, 93.65]
+
+2023-09-09 18:04:46,449 [trainer.py] => Average Accuracy (CNN): 83.1842857142857
+2023-09-09 18:04:46,450 [trainer.py] => All params: 173109505
+2023-09-09 18:04:46,451 [trainer.py] => Trainable params: 87310849
+2023-09-09 18:04:46,453 [adam_adapter.py] => Learning on 210-240
+2023-09-09 18:05:50,346 [trainer.py] => No NME accuracy.
+2023-09-09 18:05:50,346 [trainer.py] => CNN: {'total': 75.0, '00-09': 73.5, '10-19': 74.5, '20-29': 75.0, '30-39': 83.5, '40-49': 75.0, '50-59': 75.38, '60-69': 78.5, '70-79': 81.0, '80-89': 72.36, '90-99': 77.89, '100-109': 65.83, '110-119': 69.85, '120-129': 80.5, '130-139': 79.5, '140-149': 78.89, '150-159': 76.38, '160-169': 73.37, '170-179': 64.0, '180-189': 74.75, '190-199': 83.5, '200-209': 69.35, '210-219': 49.5, '220-229': 86.43, '230-239': 81.5, 'old': 75.36, 'new': 72.45}
+2023-09-09 18:05:50,346 [trainer.py] => CNN top1 curve: [89.83, 88.99, 86.21, 82.51, 80.59, 77.53, 76.63, 75.0]
+2023-09-09 18:05:50,346 [trainer.py] => CNN top5 curve: [99.17, 98.67, 97.72, 96.49, 95.12, 93.9, 93.65, 92.31]
+
+2023-09-09 18:05:50,346 [trainer.py] => Average Accuracy (CNN): 82.16125
+2023-09-09 18:05:50,347 [trainer.py] => All params: 173155585
+2023-09-09 18:05:50,348 [trainer.py] => Trainable params: 87356929
+2023-09-09 18:05:50,350 [adam_adapter.py] => Learning on 240-270
+2023-09-09 18:06:56,951 [trainer.py] => No NME accuracy.
+2023-09-09 18:06:56,951 [trainer.py] => CNN: {'total': 73.99, '00-09': 73.5, '10-19': 74.0, '20-29': 75.0, '30-39': 82.5, '40-49': 75.0, '50-59': 74.37, '60-69': 76.5, '70-79': 80.5, '80-89': 71.36, '90-99': 76.38, '100-109': 65.33, '110-119': 67.34, '120-129': 74.0, '130-139': 78.5, '140-149': 73.37, '150-159': 73.87, '160-169': 72.86, '170-179': 64.0, '180-189': 74.75, '190-199': 81.5, '200-209': 66.33, '210-219': 49.5, '220-229': 86.43, '230-239': 81.5, '240-249': 70.0, '250-259': 76.88, '260-269': 82.5, 'old': 73.68, 'new': 76.46}
+2023-09-09 18:06:56,951 [trainer.py] => CNN top1 curve: [89.83, 88.99, 86.21, 82.51, 80.59, 77.53, 76.63, 75.0, 73.99]
+2023-09-09 18:06:56,951 [trainer.py] => CNN top5 curve: [99.17, 98.67, 97.72, 96.49, 95.12, 93.9, 93.65, 92.31, 92.33]
+
+2023-09-09 18:06:56,951 [trainer.py] => Average Accuracy (CNN): 81.25333333333333
+2023-09-09 18:06:56,953 [trainer.py] => All params: 173201665
+2023-09-09 18:06:56,955 [trainer.py] => Trainable params: 87403009
+2023-09-09 18:06:56,957 [adam_adapter.py] => Learning on 270-300
+2023-09-09 18:08:04,214 [trainer.py] => No NME accuracy.
+2023-09-09 18:08:04,214 [trainer.py] => CNN: {'total': 74.07, '00-09': 73.0, '10-19': 74.0, '20-29': 74.5, '30-39': 82.5, '40-49': 72.0, '50-59': 74.37, '60-69': 76.0, '70-79': 80.0, '80-89': 71.36, '90-99': 72.36, '100-109': 64.82, '110-119': 67.34, '120-129': 74.0, '130-139': 78.0, '140-149': 73.37, '150-159': 73.87, '160-169': 71.36, '170-179': 63.0, '180-189': 73.74, '190-199': 81.0, '200-209': 65.83, '210-219': 48.5, '220-229': 86.43, '230-239': 81.0, '240-249': 68.0, '250-259': 76.38, '260-269': 81.5, '270-279': 80.9, '280-289': 81.5, '290-299': 81.41, 'old': 73.27, 'new': 81.27}
+2023-09-09 18:08:04,214 [trainer.py] => CNN top1 curve: [89.83, 88.99, 86.21, 82.51, 80.59, 77.53, 76.63, 75.0, 73.99, 74.07]
+2023-09-09 18:08:04,214 [trainer.py] => CNN top5 curve: [99.17, 98.67, 97.72, 96.49, 95.12, 93.9, 93.65, 92.31, 92.33, 92.2]
+
+2023-09-09 18:08:04,214 [trainer.py] => Average Accuracy (CNN): 80.535

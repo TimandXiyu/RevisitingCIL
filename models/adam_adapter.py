@@ -37,39 +37,86 @@ class Learner(BaseLearner):
     def after_task(self):
         self._known_classes = self._total_classes
     
-    def replace_fc(self,trainloader, model, args):
+    def replace_fc(self, trainloader, model, args):
         # replace fc.weight with the embedding average of train data
         model = model.eval()
         embedding_list = []
         label_list = []
-        # data_list=[]
+
         with torch.no_grad():
             for i, batch in tqdm(enumerate(trainloader), total=len(trainloader), desc='Generating prototypes'):
                 (_,data,label)=batch
                 if isinstance(data, dict):
                     data = data['image']
-                data=data.cuda()
-                label=label.cuda()
-                embedding = model(data)['features']
+                data = data.cuda()
+                label = label.cuda()
+                output = model(data)
+                embedding = output['features']
+                logits = output['logits']
+
                 embedding_list.append(embedding.cpu())
                 label_list.append(label.cpu())
+
         embedding_list = torch.cat(embedding_list, dim=0)
         label_list = torch.cat(label_list, dim=0)
 
         class_list=np.unique(self.train_dataset.labels)
-        proto_list = []
         for class_index in class_list:
-            # print('Replacing...',class_index)
-            data_index=(label_list==class_index).nonzero().squeeze(-1)
-            embedding=embedding_list[data_index]
-            proto=embedding.mean(0)
-            # check if _network is a dara parallel model, if so, call the .module method
+            data_index = (label_list==class_index).nonzero().squeeze(-1)
+            embedding = embedding_list[data_index]
+
+            proto = embedding.mean(0)
+
             if isinstance(self._network, torch.nn.DataParallel):
                 self._network.module.fc.weight.data[class_index]=proto
             else:
                 self._network.fc.weight.data[class_index]=proto
         return model
 
+    def refine_fc(self, train_loader, model, args):
+        iterations = args['refine_iterations']
+        for i in range(iterations):
+            print(f"Iteration {i + 1}")
+
+            model = model.eval()
+            embedding_list = []
+            label_list = []
+
+            with torch.no_grad():
+                for i, batch in tqdm(enumerate(train_loader), total=len(train_loader), desc='Refining prototypes'):
+                    (_, data, label) = batch
+                    if isinstance(data, dict):
+                        data = data['image']
+                    data = data.cuda()
+                    label = label.cuda()
+                    output = model(data)
+                    embedding = output['features']
+                    predictions = torch.argmax(output['logits'], dim=1)
+
+                    # Only include correct predictions
+                    correct = (predictions == label).nonzero().squeeze(-1)
+                    correct_embedding = embedding[correct]
+                    correct_label = label[correct]
+
+                    embedding_list.append(correct_embedding.cpu())
+                    label_list.append(correct_label.cpu())
+
+            # Step 2: Calculate new prototypes based on correct predictions
+            embedding_list = torch.cat(embedding_list, dim=0)
+            label_list = torch.cat(label_list, dim=0)
+
+            class_list = np.unique(label_list)
+            for class_index in class_list:
+                data_index = (label_list == class_index).nonzero().squeeze(-1)
+                embedding = embedding_list[data_index]
+                proto = torch.mean(embedding, dim=0)
+
+                if isinstance(model, torch.nn.DataParallel):
+                    model.module.fc.weight.data[class_index] = proto
+                else:
+                    model.fc.weight.data[class_index] = proto
+
+        return model
     
 
     def incremental_train(self, data_manager):
@@ -79,14 +126,14 @@ class Learner(BaseLearner):
         logging.info("Learning on {}-{}".format(self._known_classes, self._total_classes))
 
         train_dataset = data_manager.get_dataset(np.arange(self._known_classes, self._total_classes),source="train", mode="train")
-        self.train_dataset=train_dataset
-        self.data_manager=data_manager
+        self.train_dataset = train_dataset
+        self.data_manager = data_manager
         self.train_loader = DataLoader(train_dataset, batch_size=self.batch_size, shuffle=True, num_workers=num_workers)
 
         test_dataset = data_manager.get_dataset(np.arange(0, self._total_classes), source="test", mode="test")
         self.test_loader = DataLoader(test_dataset, batch_size=self.batch_size, shuffle=False, num_workers=num_workers)
 
-        train_dataset_for_protonet=data_manager.get_dataset(np.arange(self._known_classes, self._total_classes),source="train", mode="test")
+        train_dataset_for_protonet = data_manager.get_dataset(np.arange(self._known_classes, self._total_classes),source="train", mode="test")
         self.train_loader_for_protonet = DataLoader(train_dataset_for_protonet, batch_size=self.batch_size, shuffle=True, num_workers=num_workers)
 
         if len(self._multiple_gpus) > 1:
@@ -116,7 +163,7 @@ class Learner(BaseLearner):
                     if param.requires_grad:
                         print(name, param.numel())
             if self.args['optimizer']=='sgd':
-                optimizer = optim.SGD(self._network.parameters(), momentum=0.9, lr=self.init_lr,weight_decay=self.weight_decay)
+                optimizer = optim.SGD(self._network.parameters(), momentum=0.9, lr=self.init_lr, weight_decay=self.weight_decay)
             elif self.args['optimizer']=='adam':
                 optimizer=optim.AdamW(self._network.parameters(), lr=self.init_lr, weight_decay=self.weight_decay)
             scheduler=optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=self.args['tuned_epoch'], eta_min=self.min_lr)
@@ -125,7 +172,59 @@ class Learner(BaseLearner):
         else:
             pass
         self.replace_fc(train_loader_for_protonet, self._network, None)
-            
+        self.fine_tune(train_loader, test_loader, epoch=2)  # fine tune the fc at low lr
+
+    def fine_tune(self, train_loader, test_loader, epoch=5):
+        self._network.train()
+        optimizer = optim.SGD(self._network.parameters(), lr=1e-2, momentum=0.9, weight_decay=self.weight_decay)
+        scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.1)
+        # if convnets.0 in network name, set requires_grad to False
+        for name, param in self._network.named_parameters():
+            if 'convnets.0' in name:
+                param.requires_grad = False
+        # print learnable parameters
+        # for name, param in self._network.named_parameters():
+        #     if param.requires_grad:
+        #         print(name, param.numel())
+        if len(self._multiple_gpus) > 1 and not isinstance(self._network, nn.DataParallel):
+            print('Multiple GPUs')
+            self._network = nn.DataParallel(self._network, self._multiple_gpus)
+        for epc in range(epoch):
+            losses = 0.0
+            correct, total = 0, 0
+            for i, (_, inputs, targets) in tqdm(enumerate(train_loader), total=len(train_loader), desc='Fine Tuning for {} epochs'.format(epoch)):
+                # output from albumentations is a dict
+                if isinstance(inputs, dict):
+                    inputs = inputs['image']
+                inputs, targets = inputs.to(self._device), targets.to(self._device)
+                logits = self._network(inputs)["logits"]
+                # convert targets to long dtype
+                targets = targets.long()
+                loss = F.cross_entropy(logits, targets)
+                # loss = F.FocalLoss(logits, targets)
+                optimizer.zero_grad()
+                # get model state_dict
+                loss.backward()
+                optimizer.step()
+                losses += loss.item()
+
+                _, preds = torch.max(logits, dim=1)
+                correct += preds.eq(targets.expand_as(preds)).cpu().sum()
+                total += len(targets)
+
+            scheduler.step()
+            train_acc = np.around(tensor2numpy(correct) * 100 / total, decimals=2)
+
+            test_acc = self._compute_accuracy(self._network, test_loader)
+            info = "Task {}, Epoch {}/{} => Loss {:.3f}, Train_accy {:.2f}, Test_accy {:.2f}".format(
+                self._cur_task,
+                epc + 1,
+                epoch,
+                losses / len(train_loader),
+                train_acc,
+                test_acc,
+            )
+            logging.info(info)
 
     def construct_dual_branch_network(self):
         network = MultiBranchCosineIncrementalNet(self.args, True)
@@ -170,7 +269,9 @@ class Learner(BaseLearner):
                 test_acc,
             )
 
-        logging.info(info)
+            logging.info(info)
+
+
 
     
 
