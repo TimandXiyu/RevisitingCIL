@@ -27,7 +27,6 @@ from collections import OrderedDict
 import torch
 
 
-
 class Adapter(nn.Module):
     def __init__(self,
                  config=None,
@@ -202,7 +201,6 @@ class Attention(nn.Module):
 
         return x
 
-
 class Block(nn.Module):
 
     def __init__(self, dim, num_heads, mlp_ratio=4., qkv_bias=False, drop=0., attn_drop=0.,
@@ -252,10 +250,6 @@ class Block(nn.Module):
 
         x = residual + x
         return x
-
-
-
-
 
 class VisionTransformer(nn.Module):
     """ Vision Transformer with support for global average pooling
@@ -422,9 +416,6 @@ class VisionTransformer(nn.Module):
 #         **kwargs)
 #     return model
 
-
-
-
 def vit_base_patch16_224_adapter(pretrained=False, **kwargs):
     
     model = VisionTransformer(patch_size=16, embed_dim=768, depth=12, num_heads=12, mlp_ratio=4, qkv_bias=True,
@@ -480,8 +471,6 @@ def vit_base_patch16_224_adapter(pretrained=False, **kwargs):
             p.requires_grad = False 
     return model
 
-
-
 def vit_base_patch16_224_in21k_adapter(pretrained=False, **kwargs):
     
     model = VisionTransformer(patch_size=16, embed_dim=768, depth=12, num_heads=12, mlp_ratio=4, qkv_bias=True,
@@ -536,4 +525,7 @@ def vit_base_patch16_224_in21k_adapter(pretrained=False, **kwargs):
         else:
             p.requires_grad = False 
     return model
+
+
+
 

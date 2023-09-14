@@ -110,6 +110,33 @@ def get_convnet(args, pretrained=False):
         else:
             raise NotImplementedError("Inconsistent model name and model type")
 
+    elif '_lora' in name:
+        ffn_num=args["ffn_num"]
+        if args["model_name"]=="adam_lora":
+            from convs import vision_transformer_lora
+            from easydict import EasyDict
+            tuning_config = EasyDict(
+                # AdaptFormer
+                ffn_adapt=True,
+                ffn_option="parallel",
+                ffn_adapter_layernorm_option="none",
+                ffn_adapter_init_option="lora",
+                ffn_adapter_scalar="0.1",
+                ffn_num=ffn_num,
+                d_model=768,
+                # VPT related
+                vpt_on=False,
+                vpt_num=0,
+            )
+            if name=="pretrained_vit_b16_224_in21k_lora":
+                model = vision_transformer_lora.vit_base_patch16_224_in21k_lora(num_classes=0,
+                    global_pool=False, drop_path_rate=0.0, tuning_config=tuning_config)
+                model.out_dim = 768
+            else:
+                raise NotImplementedError("Unknown type {}".format(name))
+            return model.eval()
+        else:
+            raise NotImplementedError("Inconsistent model name and model type")
     else:
         raise NotImplementedError("Unknown type {}".format(name))
 
@@ -636,7 +663,7 @@ class MultiBranchCosineIncrementalNet(BaseNet):
         else:
             self.convnets.append(tuned_model.convnet) #adappted tuned model
 
-        self._feature_dim = self.convnets[0].out_dim * len(self.convnets) 
+        self._feature_dim = self.convnets[0].out_dim * len(self.convnets)
         self.fc=self.generate_fc(self._feature_dim,self.args['init_cls'])
         
 

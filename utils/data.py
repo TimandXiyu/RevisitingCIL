@@ -82,8 +82,8 @@ def build_transform(is_train, args):
         transform = [
             transforms.RandomResizedCrop(input_size, scale=scale, ratio=ratio),
             transforms.RandomHorizontalFlip(p=0.5),
-            # RandomHLS(vars=[15, 35, 25]),
-            # RandomWhiteNoise(),
+            RandomHLS(vars=[15, 35, 25]),
+            RandomWhiteNoise(),
             transforms.ToTensor(),
         ]
         return transform
@@ -113,7 +113,7 @@ def build_albumentations_transform(is_train, args):
             HorizontalFlip(p=0.5),
             RandomBrightnessContrast(p=0.5),
             ColorJitter(p=0.5),
-            GaussNoise(p=0.5, var_limit=(10.0, 100.0)),
+            GaussNoise(p=0.5, var_limit=(50.0, 100.0)),
             RGBShift(r_shift_limit=50, g_shift_limit=50, b_shift_limit=50, p=0.5),
             # Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
             ToFloat(),
@@ -305,8 +305,8 @@ class objectnet(iData):
 class omnibenchmark(iData):
     use_path = True
     
-    train_trsf=build_transform(True, None)
-    test_trsf=build_transform(False, None)
+    train_trsf = build_transform(True, None)
+    test_trsf = build_transform(False, None)
     common_trsf = [    ]
 
     class_order = np.arange(300).tolist()

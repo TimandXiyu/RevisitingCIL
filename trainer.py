@@ -54,8 +54,7 @@ def _train(args):
         args["shuffle"],
         args["seed"],
         args["init_cls"],
-        args["increment"],
-        # args['use_A']
+        args["increment"]
     )
     model = factory.get_model(args["model_name"], args)
 
