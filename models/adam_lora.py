@@ -9,7 +9,7 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader
 from utils.inc_net import IncrementalNet, SimpleCosineIncrementalNet, MultiBranchCosineIncrementalNet, SimpleVitNet
 from models.base import BaseLearner
-from utils.toolkit import target2onehot, tensor2numpy
+from utils.toolkit import target2onehot, tensor2numpy, FocalLoss
 
 # tune the model at first session with adapter, and then conduct simplecil.
 num_workers = 16
@@ -34,7 +34,8 @@ class Learner(BaseLearner):
         self.min_lr = args['min_lr'] if args['min_lr'] is not None else 1e-8
         self.use_A = args['use_A']
         self.args = args
-        self.proto_list = []
+        # self.proto_list = []
+        self.ceriterion = FocalLoss(gamma=4, alpha=1.0)
 
     def after_task(self):
         self._known_classes = self._total_classes
@@ -68,7 +69,7 @@ class Learner(BaseLearner):
             embedding = embedding_list[data_index]
 
             proto = embedding.mean(0)
-            self.proto_list.append(proto)
+            # self.proto_list.append(proto)
 
             if isinstance(self._network, torch.nn.DataParallel):
                 self._network.module.fc.weight.data[class_index] = proto
@@ -219,12 +220,16 @@ class Learner(BaseLearner):
                 targets = targets.long()
                 loss = F.cross_entropy(logits, targets)
 
+                # loss = self.ceriterion(logits, targets)
+
                 softmax_out = nn.Softmax(dim=1)(logits)
                 entropy_loss = torch.mean(self.Entropy(softmax_out))
                 msoftmax = softmax_out.mean(dim=0)
                 gentropy_loss = torch.sum(-msoftmax * torch.log(msoftmax + 1e-5))
+
                 entropy_loss -= gentropy_loss
                 im_loss = entropy_loss * 1.0
+
                 loss += im_loss
 
                 optimizer.zero_grad()

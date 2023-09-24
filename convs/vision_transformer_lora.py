@@ -14,8 +14,9 @@ class Attention_lora(Attention):
     # Replace the original q v weight with lora linea layers
     def __init__(self, dim, num_heads=8, qkv_bias=False, attn_drop=0., proj_drop=0.,):
         super().__init__(dim, num_heads, qkv_bias, attn_drop, proj_drop)
-        self.q_proj = lora.Linear(dim, dim, r=4)
-        self.v_proj = lora.Linear(dim, dim, r=4)
+        self.q_proj = lora.Linear(dim, dim, r=32)
+        self.v_proj = lora.Linear(dim, dim, r=32)
+        self.k_proj = lora.Linear(dim, dim, r=32)
 
     def forward(self, x):
         x = super().forward(x)

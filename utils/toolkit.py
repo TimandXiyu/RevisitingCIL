@@ -1,7 +1,10 @@
 import os
 import numpy as np
 import torch
-
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.autograd import Variable
 
 def count_parameters(model, trainable=False):
     if trainable:
@@ -71,3 +74,26 @@ def split_images_labels(imgs):
         labels.append(item[1])
 
     return np.array(images), np.array(labels)
+
+
+class FocalLoss(nn.Module):
+    def __init__(self, alpha=0.25, gamma=2, reduce=True):
+        super(FocalLoss, self).__init__()
+        self.alpha = alpha
+        self.gamma = gamma
+        self.reduce = reduce
+
+    def forward(self, inputs, targets):
+        # Compute the cross entropy
+        CE_loss = F.cross_entropy(inputs, targets, reduction='none')
+
+        # Get the probability of the correct class
+        P_t = torch.exp(-CE_loss)
+
+        # Compute the focal loss
+        focal_loss = self.alpha * (1 - P_t) ** self.gamma * CE_loss
+
+        if self.reduce:
+            return torch.mean(focal_loss)
+        else:
+            return focal_loss

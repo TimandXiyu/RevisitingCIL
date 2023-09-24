@@ -8,7 +8,7 @@ def main():
     param = load_json(args.config)
     args = vars(args)  # Converting argparse Namespace to a dict.
     args.update(param)  # Add parameters from json
-    os.environ["CUDA_VISIBLE_DEVICES"] = args["visible_device"]
+    # os.environ["CUDA_VISIBLE_DEVICES"] = args["visible_device"]
     train(args)
 
 def load_json(settings_path):

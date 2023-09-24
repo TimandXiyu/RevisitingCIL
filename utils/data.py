@@ -83,8 +83,8 @@ def build_transform(is_train, args):
         transform = [
             transforms.RandomResizedCrop(input_size, scale=scale, ratio=ratio),
             transforms.RandomHorizontalFlip(p=0.5),
-            RandomHLS(vars=[15, 35, 25]),
-            RandomWhiteNoise(),
+            # RandomHLS(vars=[15, 35, 25]),
+            # RandomWhiteNoise(),
             transforms.ToTensor(),
         ]
         return transform
