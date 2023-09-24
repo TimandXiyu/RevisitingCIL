@@ -5,7 +5,6 @@ from timm.models.layers import DropPath
 from functools import partial
 from collections import OrderedDict
 import timm
-from autoalbument.faster_autoaugment.models import BaseDiscriminator
 
 from convs.vision_transformer_adapter import Attention, PatchEmbed
 
@@ -47,8 +46,9 @@ class Block_lora(nn.Module):
         return x
 
 
-class VisionTransformer_lora(nn.Module):
-    """ Vision Transformer with support for global average pooling
+class VisionTransformer_muxlora(nn.Module):
+    """
+    vit lora implementation that supports methods that swap the lora weight
     """
     def __init__(self, global_pool=False, img_size=224, patch_size=16, in_chans=3, num_classes=1000, embed_dim=768, depth=12,
                  num_heads=12, mlp_ratio=4., qkv_bias=True, representation_size=None, distilled=False,
@@ -56,7 +56,7 @@ class VisionTransformer_lora(nn.Module):
                  act_layer=None, weight_init='', tuning_config=None):
         super().__init__()
 
-        print("Using ViT with lora layers.")
+        print("Using ViT with mux-lora layers.")
         self.tuning_config = tuning_config
         self.num_classes = num_classes
         self.num_features = self.embed_dim = embed_dim  # num_features for consistency with other models
@@ -94,7 +94,7 @@ class VisionTransformer_lora(nn.Module):
             self.pre_logits = nn.Identity()
 
         # Classifier head(s)
-        self.head = nn.Linear(self.num_features, num_classes) if num_classes > 0 else nn.Identity()
+        self.head = nn.Linear(self.num_features, 30)
         self.head_dist = None
         if distilled:
             self.head_dist = nn.Linear(self.embed_dim, self.num_classes) if num_classes > 0 else nn.Identity()
@@ -107,10 +107,6 @@ class VisionTransformer_lora(nn.Module):
             self.fc_norm = norm_layer(embed_dim)
 
             del self.norm  # remove the original norm
-
-        # self.init_pretrain()
-
-
 
     def init_weights(self, mode=''):
         raise NotImplementedError()
@@ -165,9 +161,10 @@ class VisionTransformer_lora(nn.Module):
             x = self.head(x)
         return x
 
-def vit_base_patch16_224_in21k_lora(pretrained=False, **kwargs):
-    model = VisionTransformer_lora(patch_size=16, embed_dim=768, depth=12, num_heads=12, mlp_ratio=4, qkv_bias=True,
-                              norm_layer=partial(nn.LayerNorm, eps=1e-6), num_classes=0)
+
+def vit_base_patch16_224_in21k_muxlora(lora_w=None, **kwargs):
+    model = VisionTransformer_muxlora(patch_size=16, embed_dim=768, depth=12, num_heads=12, mlp_ratio=4, qkv_bias=True,
+                              norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
 
     # checkpoint_model = torch.load('./pretrained_models/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0.npz')
     checkpoint_model = timm.create_model("vit_base_patch16_224_in21k", pretrained=True, num_classes=0)
@@ -200,11 +197,50 @@ def vit_base_patch16_224_in21k_lora(pretrained=False, **kwargs):
     msg = model.load_state_dict(state_dict, strict=False)
     print(msg)
     print("A total of {} layers does not match any layers in the pretrained weights".format(len(msg.missing_keys)))
-
-    # freeze all but the lora layers
-    for name, p in model.named_parameters():
-        if name in msg.missing_keys:
-            p.requires_grad = True
-        else:
-            p.requires_grad = False
+    if lora_w is not None:
+        # remove module. prefix in lora_w
+        lora_w = {k.replace('module.convnet.', ''): v for k, v in lora_w.items()}
+        model_state = model.state_dict()
+        msg = model.load_state_dict(lora_w, strict=False)
+        print("A total of {} layers does not match any layers in the lora weights".format(len(msg.missing_keys)))
+        task_fc = [lora_w['module.fc.weight'], lora_w['module.fc.bias']]
+        model_state['head.weight'] = task_fc[0]
+        model_state['head.bias'] = task_fc[1]
+        print('Loaded classifier for the task')
+    else:
+        raise NotImplementedError('lora weights not provided')
     return model
+
+
+def mux_model_forward(model_ls, x):
+    # check if input is from cuda, if not send to cuda
+    if not x.is_cuda:
+        x = x.cuda()
+    # check if model is in eval mode, if not set the eval mode
+    for model in model_ls:
+        if model.training:
+            model.eval()
+    # check if model on cuda, if not send to cuda
+    for model in model_ls:
+        if not next(model.parameters()).is_cuda:
+            model.cuda()
+    # forward x through all models
+    y_ls = []
+    for model in model_ls:
+        y_ls.append(model(x))
+    return y_ls
+
+
+if __name__ == "__main__":
+    from tqdm import tqdm
+    models = []
+    for _ in range(10):
+        target_weights = torch.load(f'../ckpts/2023-09-15-11-03/lora_fc_params_task_{_}.pth')
+        models.append(vit_base_patch16_224_in21k_muxlora(lora_w=target_weights))
+    # send to cuda
+    for _ in tqdm(range(500)):
+        with torch.no_grad():
+            x = torch.randn(1, 3, 224, 224)
+            y = mux_model_forward(models, x)
+    pass
+

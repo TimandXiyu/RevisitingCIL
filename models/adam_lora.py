@@ -34,6 +34,7 @@ class Learner(BaseLearner):
         self.min_lr = args['min_lr'] if args['min_lr'] is not None else 1e-8
         self.use_A = args['use_A']
         self.args = args
+        self.proto_list = []
 
     def after_task(self):
         self._known_classes = self._total_classes
@@ -67,6 +68,7 @@ class Learner(BaseLearner):
             embedding = embedding_list[data_index]
 
             proto = embedding.mean(0)
+            self.proto_list.append(proto)
 
             if isinstance(self._network, torch.nn.DataParallel):
                 self._network.module.fc.weight.data[class_index] = proto
@@ -74,50 +76,59 @@ class Learner(BaseLearner):
                 self._network.fc.weight.data[class_index] = proto
         return model
 
-    def refine_fc(self, train_loader, model, args):
-        iterations = args['refine_iterations']
-        for i in range(iterations):
-            print(f"Iteration {i + 1}")
+    def fine_tune(self, train_loader, test_loader, epoch=1):
+        self._network.train()
+        optimizer = optim.SGD(self._network.parameters(), lr=1e-5, momentum=0.9, weight_decay=self.weight_decay)
+        scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.1)
+        for name, param in self._network.named_parameters():
+            if 'convnets.0' in name:
+                param.requires_grad = False
+        # print learnable parameters
+        # for name, param in self._network.named_parameters():
+        #     if param.requires_grad:
+        #         print(name, param.numel())
+        if len(self._multiple_gpus) > 1 and not isinstance(self._network, nn.DataParallel):
+            self._network = nn.DataParallel(self._network, self._multiple_gpus)
+        for epc in range(epoch):
+            losses = 0.0
+            correct, total = 0, 0
+            for i, (_, inputs, targets) in tqdm(enumerate(train_loader), total=len(train_loader), desc='Fine Tuning for {} epochs'.format(epoch)):
+                # output from albumentations is a dict
+                if isinstance(inputs, dict):
+                    inputs = inputs['image']
+                inputs, targets = inputs.to(self._device), targets.to(self._device)
+                logits = self._network(inputs)["logits"]
+                targets = targets.long()
 
-            model = model.eval()
-            embedding_list = []
-            label_list = []
+                softmax_out = nn.Softmax(dim=1)(logits)
+                entropy_loss = torch.mean(self.Entropy(softmax_out))
+                msoftmax = softmax_out.mean(dim=0)
+                gentropy_loss = torch.sum(-msoftmax * torch.log(msoftmax + 1e-5))
+                entropy_loss -= gentropy_loss
+                loss = entropy_loss * 1.0
 
-            with torch.no_grad():
-                for i, batch in tqdm(enumerate(train_loader), total=len(train_loader), desc='Refining prototypes'):
-                    (_, data, label) = batch
-                    if isinstance(data, dict):
-                        data = data['image']
-                    data = data.cuda()
-                    label = label.cuda()
-                    output = model(data)
-                    embedding = output['features']
-                    predictions = torch.argmax(output['logits'], dim=1)
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()
+                losses += loss.item()
 
-                    # Only include correct predictions
-                    correct = (predictions == label).nonzero().squeeze(-1)
-                    correct_embedding = embedding[correct]
-                    correct_label = label[correct]
+                _, preds = torch.max(logits, dim=1)
+                correct += preds.eq(targets.expand_as(preds)).cpu().sum()
+                total += len(targets)
 
-                    embedding_list.append(correct_embedding.cpu())
-                    label_list.append(correct_label.cpu())
+            scheduler.step()
+            train_acc = np.around(tensor2numpy(correct) * 100 / total, decimals=2)
 
-            # Step 2: Calculate new prototypes based on correct predictions
-            embedding_list = torch.cat(embedding_list, dim=0)
-            label_list = torch.cat(label_list, dim=0)
-
-            class_list = np.unique(label_list)
-            for class_index in class_list:
-                data_index = (label_list == class_index).nonzero().squeeze(-1)
-                embedding = embedding_list[data_index]
-                proto = torch.mean(embedding, dim=0)
-
-                if isinstance(model, torch.nn.DataParallel):
-                    model.module.fc.weight.data[class_index] = proto
-                else:
-                    model.fc.weight.data[class_index] = proto
-
-        return model
+            test_acc = self._compute_accuracy(self._network, test_loader)
+            info = "Task {}, Epoch {}/{} => Loss {:.3f}, Train_accy {:.2f}, Test_accy {:.2f}".format(
+                self._cur_task,
+                epc + 1,
+                epoch,
+                losses / len(train_loader),
+                train_acc,
+                test_acc,
+            )
+            logging.info(info)
 
     def incremental_train(self, data_manager):
         self._cur_task += 1
@@ -166,22 +177,30 @@ class Learner(BaseLearner):
                     if param.requires_grad:
                         print(name, param.numel())
             if self.args['optimizer'] == 'sgd':
-                optimizer = optim.SGD(self._network.parameters(), momentum=0.9, lr=self.init_lr,
-                                      weight_decay=self.weight_decay)
+                optimizer = optim.SGD(self._network.parameters(), momentum=0.9, lr=self.init_lr, weight_decay=self.weight_decay)
+                scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=self.args['tuned_epoch'], eta_min=self.min_lr)
             elif self.args['optimizer'] == 'adam':
                 optimizer = optim.Adam(self._network.parameters(), lr=self.init_lr, weight_decay=self.weight_decay)
-            scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=self.args['tuned_epoch'],
-                                                             eta_min=self.min_lr)
+                scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)
             self._init_train(train_loader, test_loader, optimizer, scheduler)
             self.construct_dual_branch_network()
         else:
             pass
         self.replace_fc(train_loader_for_protonet, self._network, None)
+        # self.fine_tune(train_loader, test_loader, epoch=1)
 
     def construct_dual_branch_network(self):
         network = MultiBranchCosineIncrementalNet(self.args, True)
         network.construct_dual_branch_network(self._network)
         self._network = network.to(self._device)
+
+    @staticmethod
+    def Entropy(input_):
+        bs = input_.size(0)
+        epsilon = 1e-5
+        entropy = -input_ * torch.log(input_ + epsilon)
+        entropy = torch.sum(entropy, dim=1)
+        return entropy
 
     def _init_train(self, train_loader, test_loader, optimizer, scheduler):
         for _, epoch in enumerate(range(self.args['tuned_epoch'])):
@@ -199,6 +218,15 @@ class Learner(BaseLearner):
                 # convert targets to long dtype
                 targets = targets.long()
                 loss = F.cross_entropy(logits, targets)
+
+                softmax_out = nn.Softmax(dim=1)(logits)
+                entropy_loss = torch.mean(self.Entropy(softmax_out))
+                msoftmax = softmax_out.mean(dim=0)
+                gentropy_loss = torch.sum(-msoftmax * torch.log(msoftmax + 1e-5))
+                entropy_loss -= gentropy_loss
+                im_loss = entropy_loss * 1.0
+                loss += im_loss
+
                 optimizer.zero_grad()
                 loss.backward()
                 optimizer.step()

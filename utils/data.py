@@ -5,6 +5,7 @@ from albumentations import (
     Compose, RandomResizedCrop, HorizontalFlip, Resize, CenterCrop,
     Normalize, ToFloat, RandomBrightnessContrast, GaussNoise, GaussianBlur, RGBShift, ColorJitter,
 )
+import albumentations as A
 from albumentations.pytorch import ToTensorV2
 from utils.augment import RandomHLS, RandomWhiteNoise
 
@@ -107,17 +108,11 @@ def build_albumentations_transform(is_train, args):
     if is_train:
         scale = (0.05, 1.0)
         ratio = (3. / 4., 4. / 3.)
-
-        transform = Compose([
-            RandomResizedCrop(height=input_size, width=input_size, scale=scale, ratio=ratio),
-            HorizontalFlip(p=0.5),
-            RandomBrightnessContrast(p=0.5),
-            ColorJitter(p=0.5),
-            GaussNoise(p=0.5, var_limit=(50.0, 100.0)),
-            RGBShift(r_shift_limit=50, g_shift_limit=50, b_shift_limit=50, p=0.5),
-            # Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-            ToFloat(),
-            ToTensorV2()
+        transform = A.Compose([
+            A.RandomResizedCrop(height=input_size, width=input_size, scale=scale, ratio=ratio),
+            A.load('./exps/vit_lora_albument_policy.json'),
+            # A.ToFloat(max_value=255.0),
+            # ToTensorV2(),
         ])
         return transform
 

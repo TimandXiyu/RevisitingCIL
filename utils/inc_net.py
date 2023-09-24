@@ -4,6 +4,7 @@ import torch
 from torch import nn
 from convs.linears import SimpleLinear, SplitCosineLinear, CosineLinear
 import timm
+import math
 
 
 def get_convnet(args, pretrained=False):
@@ -112,7 +113,7 @@ def get_convnet(args, pretrained=False):
 
     elif '_lora' in name:
         ffn_num=args["ffn_num"]
-        if args["model_name"]=="adam_lora":
+        if args["model_name"]=="adam_lora" or args["model_name"]=="adam_lora_finetune":
             from convs import vision_transformer_lora
             from easydict import EasyDict
             tuning_config = EasyDict(
@@ -135,6 +136,31 @@ def get_convnet(args, pretrained=False):
             else:
                 raise NotImplementedError("Unknown type {}".format(name))
             return model.eval()
+        elif args["model_name"]=="mux_lora":
+            from convs import muxlora
+            from easydict import EasyDict
+            tuning_config = EasyDict(
+                # AdaptFormer
+                ffn_adapt=True,
+                ffn_option="parallel",
+                ffn_adapter_layernorm_option="none",
+                ffn_adapter_init_option="lora",
+                ffn_adapter_scalar="0.1",
+                ffn_num=ffn_num,
+                d_model=768,
+                # VPT related
+                vpt_on=False,
+                vpt_num=0,
+            )
+            if name=="pretrained_vit_b16_224_in21k_mux_lora":
+                models = []
+                for _ in range(10):
+                    target_weights = torch.load(f'./ckpts/2023-09-15-11-03/lora_fc_params_task_{_}.pth')
+                    models.append(muxlora.vit_base_patch16_224_in21k_muxlora(lora_w=target_weights, num_classes=0,
+                    global_pool=False, drop_path_rate=0.0, tuning_config=tuning_config))
+            else:
+                raise NotImplementedError("Unknown type {}".format(name))
+            return models
         else:
             raise NotImplementedError("Inconsistent model name and model type")
     else:
@@ -570,18 +596,46 @@ class SimpleVitNet(BaseNet):
         del self.fc
         self.fc = fc
 
+    def reset_fc(self, nb_classes):
+        fc = self.generate_linear_fc(self.feature_dim, nb_classes).cuda()
+        del self.fc
+        self.fc = fc
+
+    def swap_fc(self, task_id=0):
+        fc_weight = torch.load(f"./ckpts/2023-09-15-11-03/lora_fc_params_task_{task_id}.pth")[-2:]
+        self.fc.weight = fc_weight[0]
+        self.fc.bias = fc_weight[1]
+
     def generate_fc(self, in_dim, out_dim):
         fc = CosineLinear(in_dim, out_dim)
+        return fc
+
+    def reset_lora(self):
+        print("\033[91m" + "Resetting lora parameters" + "\033[0m")
+        for block in self.convnet.blocks:
+            nn.init.kaiming_uniform_(block.attn.q_proj.lora_A, a=math.sqrt(5))
+            nn.init.zeros_(block.attn.q_proj.lora_B)
+            nn.init.kaiming_uniform_(block.attn.v_proj.lora_A, a=math.sqrt(5))
+            nn.init.zeros_(block.attn.v_proj.lora_B)
+
+    def generate_linear_fc(self, in_dim, out_dim):
+        fc = SimpleLinear(in_dim, out_dim)
         return fc
 
     def extract_vector(self, x):
         return self.convnet(x)
 
     def forward(self, x):
-        x = self.convnet(x)
-        out = self.fc(x)
-        # out.update(x)
-        return out
+        if isinstance(self.convnet, list):
+            outputs = []
+            for convnet in self.convnet:
+                outputs.append(convnet(x))
+            return outputs
+        else:
+            x = self.convnet(x)
+            out = self.fc(x)
+            # out.update(x)
+            return out
 
 
 class MultiBranchCosineIncrementalNet(BaseNet):
@@ -655,16 +709,21 @@ class MultiBranchCosineIncrementalNet(BaseNet):
             newargs['convnet_type']=newargs['convnet_type'].replace('_adapter','')
             print(newargs['convnet_type'])
             self.convnets.append(get_convnet(newargs)) #pretrained model without adapter
+        elif 'lora' in self.args['convnet_type']:
+            newargs = copy.deepcopy(self.args)
+            newargs['convnet_type'] = newargs['convnet_type'].replace('_lora', '')
+            print(newargs['convnet_type'])
+            self.convnets.append(get_convnet(newargs))  # pretrained model without lora
         else:
-            self.convnets.append(get_convnet(self.args)) #the pretrained model itself
+            self.convnets.append(get_convnet(self.args))  # the pretrained model itself
 
         if isinstance(tuned_model, nn.DataParallel):
             self.convnets.append(tuned_model.module.convnet)
         else:
-            self.convnets.append(tuned_model.convnet) #adappted tuned model
+            self.convnets.append(tuned_model.convnet) # adappted tuned model
 
         self._feature_dim = self.convnets[0].out_dim * len(self.convnets)
-        self.fc=self.generate_fc(self._feature_dim,self.args['init_cls'])
+        self.fc = self.generate_fc(self._feature_dim, self.args['init_cls'])
         
 
     

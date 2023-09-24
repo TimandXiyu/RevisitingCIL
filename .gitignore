@@ -4,3 +4,5 @@
 *.pyc
 *.xml
 /.idea
+*.log
+*.pth

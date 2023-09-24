@@ -162,11 +162,12 @@ class Learner(BaseLearner):
                 for name, param in self._network.named_parameters():
                     if param.requires_grad:
                         print(name, param.numel())
-            if self.args['optimizer']=='sgd':
+            if self.args['optimizer'] == 'sgd':
                 optimizer = optim.SGD(self._network.parameters(), momentum=0.9, lr=self.init_lr, weight_decay=self.weight_decay)
-            elif self.args['optimizer']=='adam':
-                optimizer=optim.AdamW(self._network.parameters(), lr=self.init_lr, weight_decay=self.weight_decay)
-            scheduler=optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=self.args['tuned_epoch'], eta_min=self.min_lr)
+                scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=self.args['tuned_epoch'], eta_min=self.min_lr)
+            elif self.args['optimizer'] == 'adam':
+                optimizer=optim.Adam(self._network.parameters(), lr=self.init_lr, weight_decay=self.weight_decay)
+                scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)
             self._init_train(train_loader, test_loader, optimizer, scheduler)
             self.construct_dual_branch_network()
         else:

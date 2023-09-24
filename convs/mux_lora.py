@@ -5,7 +5,6 @@ from timm.models.layers import DropPath
 from functools import partial
 from collections import OrderedDict
 import timm
-from autoalbument.faster_autoaugment.models import BaseDiscriminator
 
 from convs.vision_transformer_adapter import Attention, PatchEmbed
 
@@ -48,7 +47,8 @@ class Block_lora(nn.Module):
 
 
 class VisionTransformer_lora(nn.Module):
-    """ Vision Transformer with support for global average pooling
+    """
+    vit lora implementation that supports methods that swap the lora weight
     """
     def __init__(self, global_pool=False, img_size=224, patch_size=16, in_chans=3, num_classes=1000, embed_dim=768, depth=12,
                  num_heads=12, mlp_ratio=4., qkv_bias=True, representation_size=None, distilled=False,
@@ -108,9 +108,6 @@ class VisionTransformer_lora(nn.Module):
 
             del self.norm  # remove the original norm
 
-        # self.init_pretrain()
-
-
 
     def init_weights(self, mode=''):
         raise NotImplementedError()
@@ -141,7 +138,12 @@ class VisionTransformer_lora(nn.Module):
         x = self.pos_drop(x)
 
         for idx, blk in enumerate(self.blocks):
+            if self.tuning_config.vpt_on:
+                eee = self.embeddings[idx].expand(B, -1, -1)
+                x = torch.cat([eee, x], dim=1)
             x = blk(x)
+            if self.tuning_config.vpt_on:
+                x = x[:, self.tuning_config.vpt_num:, :]
 
         if self.global_pool:
             x = x[:, 1:, :].mean(dim=1)  # global pool without cls token
@@ -165,9 +167,10 @@ class VisionTransformer_lora(nn.Module):
             x = self.head(x)
         return x
 
-def vit_base_patch16_224_in21k_lora(pretrained=False, **kwargs):
+
+def vit_base_patch16_224_in21k_mux(pretrained=False, **kwargs):
     model = VisionTransformer_lora(patch_size=16, embed_dim=768, depth=12, num_heads=12, mlp_ratio=4, qkv_bias=True,
-                              norm_layer=partial(nn.LayerNorm, eps=1e-6), num_classes=0)
+                              norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
 
     # checkpoint_model = torch.load('./pretrained_models/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0.npz')
     checkpoint_model = timm.create_model("vit_base_patch16_224_in21k", pretrained=True, num_classes=0)
@@ -208,3 +211,10 @@ def vit_base_patch16_224_in21k_lora(pretrained=False, **kwargs):
         else:
             p.requires_grad = False
     return model
+
+
+if __name__ == "__main__":
+    model = VisionTransformer_lora(num_classes=0)
+    # print state_dict
+    state_dict = model.state_dict()
+    pass

@@ -18,5 +18,11 @@ def get_model(model_name, args):
     elif name == "adam_lora":
         from models.adam_lora import Learner
         return Learner(args)
+    elif name == "adam_lora_finetune":
+        from models.adam_finetune import Learner
+        return Learner(args)
+    elif name == "mux_lora":
+        from models.mux_lora import Learner
+        return Learner(args)
     else:
         assert 0

@@ -7,15 +7,15 @@
     "shuffle": true,
     "init_cls": 30,
     "increment": 30,
-    "model_name": "adam_lora",
-    "convnet_type": "pretrained_vit_b16_224_in21k_lora",
+    "model_name": "mux_lora",
+    "convnet_type": "pretrained_vit_b16_224_in21k_mux_lora",
     "device": ["0"],
-    "visible_device": "0,2",
+    "visible_device": "0",
     "seed": [1993],
 
-    "tuned_epoch":20,
-    "init_lr":0.07,
-    "batch_size":96,
+    "tuned_epoch":1,
+    "init_lr":0.05,
+    "batch_size":4,
     "use_A": false,
     "weight_decay":0.0005,
     "min_lr":0,
@@ -23,7 +23,6 @@
     "optimizer":"sgd",
     "vpt_type":"shallow",
     "prompt_token_num":5,
-    "reset_testloader_label": false,
 
     "save_path": "./ckpts/"
 }

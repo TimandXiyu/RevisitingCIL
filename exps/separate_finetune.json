@@ -7,14 +7,14 @@
     "shuffle": true,
     "init_cls": 30,
     "increment": 30,
-    "model_name": "adam_lora",
+    "model_name": "adam_lora_finetune",
     "convnet_type": "pretrained_vit_b16_224_in21k_lora",
-    "device": ["0"],
-    "visible_device": "0,2",
+    "device": ["0","1"],
+    "visible_device": "2,3",
     "seed": [1993],
 
-    "tuned_epoch":20,
-    "init_lr":0.07,
+    "tuned_epoch":10,
+    "init_lr":0.05,
     "batch_size":96,
     "use_A": false,
     "weight_decay":0.0005,
@@ -23,8 +23,8 @@
     "optimizer":"sgd",
     "vpt_type":"shallow",
     "prompt_token_num":5,
-    "reset_testloader_label": false,
-
+    "reset_testloader_label": true,
+    
     "save_path": "./ckpts/"
 }
 

@@ -112,8 +112,8 @@ class BaseLearner(object):
 
         return ret
 
-    def eval_task(self):
-        y_pred, y_true = self._eval_cnn(self.test_loader)
+    def eval_task(self, offset_label=0):
+        y_pred, y_true = self._eval_cnn(self.test_loader, offset_label=offset_label)
         cnn_accy = self._evaluate(y_pred, y_true)
 
         if hasattr(self, "_class_means"):
@@ -136,7 +136,7 @@ class BaseLearner(object):
         else:
             return (self._data_memory, self._targets_memory)
 
-    def _compute_accuracy(self, model, loader):
+    def _compute_accuracy(self, model, loader, offset_label=0):
         model.eval()
         correct, total = 0, 0
         for i, (_, inputs, targets) in tqdm(enumerate(loader), desc='Evaluating'):
@@ -146,12 +146,13 @@ class BaseLearner(object):
             with torch.no_grad():
                 outputs = model(inputs)["logits"]
             predicts = torch.max(outputs, dim=1)[1]
+            targets = targets - offset_label
             correct += (predicts.cpu() == targets).sum()
             total += len(targets)
 
         return np.around(tensor2numpy(correct) * 100 / total, decimals=2)
 
-    def _eval_cnn(self, loader):
+    def _eval_cnn(self, loader, offset_label=0):
         self._network.eval()
         y_pred, y_true = [], []
         for _, (_, inputs, targets) in enumerate(loader):
@@ -166,6 +167,7 @@ class BaseLearner(object):
                 1
             ]  # [bs, topk]
             y_pred.append(predicts.cpu().numpy())
+            targets = targets - offset_label
             y_true.append(targets.cpu().numpy())
 
         return np.concatenate(y_pred), np.concatenate(y_true)  # [N, topk]

@@ -20,8 +20,9 @@ def train(args):
 
 
 def _train(args):
-    current_date = datetime.now().strftime("%Y-%m-%d")
-    init_cls = 0 if args ["init_cls"] == args["increment"] else args["init_cls"]
+    current_date = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    args["current_date"] = current_date
+    init_cls = 0 if args["init_cls"] == args["increment"] else args["init_cls"]
     logs_name = "logs/{}/{}/{}/{}".format(args["model_name"],args["dataset"], init_cls, args['increment'])
     
     if not os.path.exists(logs_name):
@@ -54,18 +55,22 @@ def _train(args):
         args["shuffle"],
         args["seed"],
         args["init_cls"],
-        args["increment"]
+        args["increment"],
+        args["use_A"]
     )
     model = factory.get_model(args["model_name"], args)
 
     cnn_curve, nme_curve = {"top1": [], "top5": []}, {"top1": [], "top5": []}
-    for task in range(data_manager.nb_tasks):
+    for i, task in enumerate(range(data_manager.nb_tasks)):
         logging.info("All params: {}".format(count_parameters(model._network)))
         logging.info(
             "Trainable params: {}".format(count_parameters(model._network, True))
         )
         model.incremental_train(data_manager)
-        cnn_accy, nme_accy = model.eval_task()
+        if args['reset_testloader_label']:
+            cnn_accy, nme_accy = model.eval_task(offset_label=i * args["increment"])
+        else:
+            cnn_accy, nme_accy =model.eval_task()
         model.after_task()
 
         if nme_accy is not None:

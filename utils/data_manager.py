@@ -297,3 +297,18 @@ def default_loader(path):
         return accimage_loader(path)
     else:
         return pil_loader(path)
+
+
+if __name__ == "__main__":
+    import os
+    # list all folder under ../data/omnibenchmark/train
+    path = "../data/omnibenchmark/train"
+    folders = os.listdir(path)
+    # sort the folders
+    folders.sort()
+    order = [i for i in range(300)]
+    np.random.seed(1993)
+    order = np.random.permutation(len(order)).tolist()
+    folders = np.array(folders)[order]
+    print(order[:30])
+    print(folders[:30])
